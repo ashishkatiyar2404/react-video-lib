@@ -8,20 +8,32 @@ import { v4 as uuid } from "uuid";
 export const categories = [
   {
     _id: uuid(),
-    categoryName: "Computer Programming",
+    categoryName: "Naruto",
     description:
-      "Computer programming is the process of designing and building an executable computer program to accomplish a specific computing",
+      "Naruto is generally a very simple minded, easy going, cheerful person.",
   },
   {
     _id: uuid(),
-    categoryName: "Frontend Development",
+    categoryName: "Itachi",
     description:
-      "Front-end web development, also known as client-side development is the practice of producing HTML, CSS and JavaScript for a website or Web Application",
+      "Itachi Uchiha is a character in the Naruto manga and anime series created by Masashi Kishimoto. Itachi is the older brother of Sasuke Uchiha",
   },
   {
     _id: uuid(),
-    categoryName: "Backend Development",
+    categoryName: "Akatsuki",
     description:
-      "Backend Development is also known as server-side development. It is everything that the users don't see and contains behind-the-scenes activities that occur when performing any action on a website.",
+      "Akatsuki was a group of shinobi that existed outside the usual system of hidden villages. Over the course of several decades, Akatsuki took different forms and was led by different individuals.",
+  },
+  {
+    _id: uuid(),
+    categoryName: "Sasuke",
+    description:
+      "Sasuke Uchiha is a fictional character in the Naruto manga and anime franchise created by Masashi Kishimoto. Sasuke belongs to the Uchiha clan, a notorious ninja family",
+  },
+  {
+    _id: uuid(),
+    categoryName: "Madara Uchiha",
+    description:
+      "Madara was the legendary leader of the Uchiha clan. He founded Konohagakure alongside his childhood friend and rival",
   },
 ];
