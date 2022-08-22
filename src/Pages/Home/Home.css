@@ -1,0 +1,51 @@
+.hero__section {
+  background-image: linear-gradient(160deg, #0f99e9 30%, #80d0c7 50%),
+    url(/src/Assets/Images/heroImg.jpg);
+  height: 91.5vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+  position: relative;
+}
+
+.heading__text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -35%);
+}
+
+.heading__primary {
+  color: rgb(67, 67, 67);
+  text-transform: uppercase;
+  backface-visibility: hidden;
+}
+
+.heading__primary-main {
+  display: block;
+  letter-spacing: 0.1rem;
+  font-size: 4rem;
+  font-weight: 400;
+  margin: 1rem;
+}
+
+.heading__primary-sub {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 0.5rem;
+}
+
+.btn__white {
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  display: inline-block;
+  border-radius: 10rem;
+  position: relative;
+  font-size: 1.5rem;
+  background-color: white;
+  color: rgb(109, 104, 104);
+  margin-top: 2rem;
+}

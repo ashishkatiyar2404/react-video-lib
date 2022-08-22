@@ -24,7 +24,6 @@
 }
 
 .sideBar__list .sideBar__row:hover {
-  /* cursor: pointer; */
   background-color: #1976d2;
 }
 
