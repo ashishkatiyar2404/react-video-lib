@@ -1,11 +1,14 @@
 import React from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
-// import { Link } from "react-router-dom";
+import { categories } from "../../backend/db/categories";
+import CategoryList from "./CategoryList";
 
 const Home = () => {
+  console.log(categories);
   return (
     <div>
+      {/* HERO SECTION */}
       <section className="hero__section">
         <div className="heading__text-box">
           <h1 className="heading__primary">
@@ -20,6 +23,18 @@ const Home = () => {
           <Link to="/VideoList" className="btn__white">
             Start Watching
           </Link>
+        </div>
+      </section>
+
+      {/* TRENDING SECTION */}
+      <section className="trending__container">
+        <div className="trending">
+          <h3>Trending Videos</h3>
+        </div>
+        <div className="trending__List">
+          {categories.map((items) => (
+            <CategoryList items={items} key={items._id} />
+          ))}
         </div>
       </section>
     </div>

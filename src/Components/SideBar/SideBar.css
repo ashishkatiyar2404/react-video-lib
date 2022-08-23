@@ -1,6 +1,5 @@
 .sideBar__container {
   height: 100%;
-  /* width: 200px; */
   background-color: #9eceff;
 }
 
@@ -11,9 +10,7 @@
 }
 
 .sideBar__list .sideBar__row {
-  /* width: 100%; */
   height: 60px;
-  /* border: 2px solid #2c70b4; */
   list-style-type: none;
   margin: 2%;
   display: flex;
@@ -30,9 +27,6 @@
 .cursor {
   cursor: pointer;
 }
-/* .sideBar__list #active {
-  background-color: #1976d2;
-} */
 
 .icon {
   flex: 30%;
