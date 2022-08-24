@@ -9,9 +9,9 @@ import HistoryIcon from "@mui/icons-material/History";
 const SideBar = () => {
   const sideBarData = [
     {
-      title: "Home",
+      title: "Explore",
       icon: <HomeIcon />,
-      link: "/home",
+      link: "/LandingPage",
     },
     {
       title: "Liked",

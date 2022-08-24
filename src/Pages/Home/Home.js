@@ -20,7 +20,7 @@ const Home = () => {
               the story of Naruto Uzumaki.
             </span>
           </h1>
-          <Link to="/VideoList" className="btn__white">
+          <Link to="/LandingPage" className="btn__white">
             Start Watching
           </Link>
         </div>
