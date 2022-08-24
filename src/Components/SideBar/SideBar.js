@@ -34,6 +34,7 @@ const SideBar = () => {
       link: "History",
     },
   ];
+
   return (
     <div className="sideBar__container">
       <ul className="sideBar__list">

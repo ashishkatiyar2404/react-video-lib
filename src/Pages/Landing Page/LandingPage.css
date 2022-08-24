@@ -1,0 +1,18 @@
+/* SIDEBAR */
+.bottom__container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-column-gap: 5px;
+  height: 91.5vh;
+}
+
+.VideoLanding__Container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-column-gap: 5px;
+  height: 91.5vh;
+}
+
+.landing__videos {
+  margin-top: 0.5rem;
+}
