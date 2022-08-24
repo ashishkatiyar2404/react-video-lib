@@ -1,11 +1,13 @@
 .hero__section {
-  background-image: linear-gradient(160deg, #0f99e9 30%, #80d0c7 50%),
-    url(/src/Assets/Images/heroImg.jpg);
+  /* background-image: linear-gradient(160deg, #0f99e9 30%, #80d0c7 50%),
+    url(/src/Assets/Images/heroImg.jpg); */
+  background-image: url(/src/Assets/Images/hero14.jpg);
   height: 91.5vh;
   background-repeat: no-repeat;
   background-size: cover;
   object-fit: cover;
   position: relative;
+  opacity: 0.92;
 }
 
 .heading__text-box {
@@ -17,7 +19,7 @@
 }
 
 .heading__primary {
-  color: rgb(67, 67, 67);
+  color: white;
   text-transform: uppercase;
   backface-visibility: hidden;
 }
@@ -45,14 +47,16 @@
   border-radius: 10rem;
   position: relative;
   font-size: 1.5rem;
-  background-color: white;
+  background-color: #3383d3;
   color: rgb(109, 104, 104);
   margin-top: 2rem;
+  color: white;
 }
 
 /* trending */
 .trending__container {
   min-height: 100vh;
+  background-color: #86add4;
 }
 
 .trending {
