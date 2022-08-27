@@ -41,7 +41,7 @@
 .viewsAndMonth {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .icon__playList {
@@ -51,4 +51,9 @@
 
 .creator-container {
   font-weight: bolder;
+}
+
+.icon__watchLater {
+  font-size: 1.8rem;
+  cursor: pointer;
 }

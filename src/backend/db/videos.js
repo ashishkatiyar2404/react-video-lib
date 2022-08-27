@@ -44,7 +44,7 @@ export const videos = [
     title: "Madara Uchiha vs Shinobi Alliance Full Fight",
     description:
       "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.",
-    creator: "Madara vs Shinobi Alliance",
+    creator: "Madara Revive",
     img: "https://yt3.ggpht.com/ytc/AMLnZu_Y_QJtiAnBMs-u-XyQakjlBPWbGCN1XmXFEvUA=s176-c-k-c0x00ffffff-no-rj",
     category: "Madara Uchiha",
     views: "90k",
@@ -55,7 +55,7 @@ export const videos = [
     title: "Sasuke Uchiha vs Itachi Uchiha Full Fight",
     description:
       "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.",
-    creator: "Boy who killed his brother",
+    creator: "Sasuke",
     img: "https://yt3.ggpht.com/Ct_3IeChTB4ZdoalIaOgHOARot-CGckti0_WyExOmuA-zHvjwLoRjyFvWDDa6brIE-uT9KDR=s176-c-k-c0x00ffffff-no-rj",
     category: "Sasuke",
     views: "94k",
