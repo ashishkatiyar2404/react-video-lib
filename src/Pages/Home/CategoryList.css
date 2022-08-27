@@ -1,0 +1,33 @@
+.trending__singleItem {
+  height: 50vh;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+}
+
+.trending__singleItem {
+  -webkit-box-shadow: 3px 6px 22px 1px #086dd3;
+  -moz-box-shadow: 3px 6px 22px 1px #086dd3;
+  box-shadow: 3px 6px 22px 1px #086dd3;
+  transition: 0.5s;
+}
+
+.img__container {
+  height: 250px;
+  width: 400px;
+}
+
+.img__container img {
+  height: 100%;
+  width: 100%;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.category__name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
