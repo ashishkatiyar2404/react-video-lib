@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../../Store/AuthSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // INPUT HANDLER
   const [loginData, setLoginData] = useState({ email: "", password: "" });
@@ -23,6 +24,7 @@ const Login = () => {
       userLogin({
         email: "ashishkatiyar@gmail.com",
         password: "ashish@123",
+        navigate,
       })
     );
   };
@@ -31,7 +33,11 @@ const Login = () => {
   function loginHandler(e) {
     e.preventDefault();
     dispatch(
-      userLogin({ email: loginData.email, password: loginData.password })
+      userLogin({
+        email: loginData.email,
+        password: loginData.password,
+        navigate,
+      })
     );
   }
 

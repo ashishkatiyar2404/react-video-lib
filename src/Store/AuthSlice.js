@@ -74,12 +74,12 @@ export const userLogin = createAsyncThunk(
   async (data, thunkAPI) => {
     console.log("bulawa aaya tha", data);
     try {
-      const { email, password } = data;
+      const { email, password, navigate } = data;
       const response = await axios.post("/api/auth/login", {
         email: email,
         password: password,
       });
-      console.log(response.data);
+      navigate("/LandingPage");
       return response.data;
     } catch (ERROR) {
       return thunkAPI.rejectWithValue(ERROR);
@@ -92,14 +92,14 @@ export const userSignUp = createAsyncThunk(
   "auth/userSignUp",
   async (data, thunkAPI) => {
     try {
-      const { firstName, lastName, email, password, navigate } = data;
+      const { name, lastName, email, password, navigate } = data;
       const response = await axios.post("/api/auth/signup", {
-        firstName: firstName,
+        firstName: name,
         lastName: lastName,
         email: email,
         password: password,
       });
-      navigate("/");
+      navigate("/Login");
       return response.data;
     } catch (ERROR) {
       return thunkAPI.rejectWithValue(ERROR);
