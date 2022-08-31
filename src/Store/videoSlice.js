@@ -38,8 +38,6 @@ export const fetchingVideos = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const response = await axios.get("/api/videos");
-      //   console.log(response.data.videos);
-      console.log(response.data);
       return response.data.videos;
     } catch (error) {
       console.log(error);

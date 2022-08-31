@@ -45,7 +45,8 @@ const authSlice = createSlice({
           state.user.ERROR.emailERROR = "";
           state.user.ERROR.passwordERROR = "PASSWORD NOT MATCHING";
         } else {
-          console.log("try later");
+          console.log(status, "try later");
+          state.user.ERROR.passwordERROR = "PASSWORD NOT MATCHING";
         }
       })
       .addCase(userSignUp.fulfilled, (state, action) => {
@@ -71,12 +72,14 @@ export const { logout } = authSlice.actions;
 export const userLogin = createAsyncThunk(
   "auth/userLogin",
   async (data, thunkAPI) => {
+    console.log("bulawa aaya tha", data);
     try {
       const { email, password } = data;
       const response = await axios.post("/api/auth/login", {
         email: email,
         password: password,
       });
+      console.log(response.data);
       return response.data;
     } catch (ERROR) {
       return thunkAPI.rejectWithValue(ERROR);
@@ -85,7 +88,6 @@ export const userLogin = createAsyncThunk(
 );
 
 // signUp
-
 export const userSignUp = createAsyncThunk(
   "auth/userSignUp",
   async (data, thunkAPI) => {

@@ -7,7 +7,9 @@ import {
   Stack,
   Button,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import { GiStaticWaves } from "react-icons/gi";
+import "./Navbar.css";
 
 const Navbar = () => {
   return (
@@ -22,7 +24,9 @@ const Navbar = () => {
         <Stack direction="row" spacing={2}>
           <Button color="inherit">Categories</Button>
           <Button color="inherit">Explore</Button>
-          <Button color="inherit">Login</Button>
+          <Link to="/Login" className="link_btn">
+            <Button color="inherit">Login</Button>
+          </Link>
         </Stack>
       </Toolbar>
     </AppBar>
