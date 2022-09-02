@@ -99,13 +99,13 @@ export const deletingWatchLater = createAsyncThunk(
   "watchLater/deletingWatchLater",
   async (data, thunkAPI) => {
     try {
-      const { _id, token } = data;
-      const response = await axios.delete(`/api/user/watchlater/${_id}`, {
+      const { videoID, token } = data;
+      const response = await axios.delete(`/api/user/watchlater/${videoID}`, {
         headers: {
           authorization: token,
         },
       });
-      console.log(response.data);
+      console.log(response.data, "hogya delete");
       return response.data;
     } catch (ERROR) {
       console.log("ERROR in deleting watchLater");

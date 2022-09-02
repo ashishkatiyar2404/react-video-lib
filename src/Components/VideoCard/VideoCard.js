@@ -5,14 +5,16 @@ import { BsFillCheckCircleFill, BsDot } from "react-icons/bs";
 import { MdOutlineWatchLater, MdWatchLater } from "react-icons/md";
 import "./VideoCard.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addingToWatchLater } from "../../Store/WatchLaterSlice";
+import {
+  addingToWatchLater,
+  deletingWatchLater,
+} from "../../Store/WatchLaterSlice";
 
 const VideoCard = ({ videosData }) => {
   const dispatch = useDispatch();
   const {
     user: { token },
   } = useSelector((store) => store.auth);
-  // console.log(token);
 
   const { _id, title, creator, views, monthAgo, img } = videosData;
   const [watched, setWatched] = useState(false);
@@ -25,7 +27,7 @@ const VideoCard = ({ videosData }) => {
   function watchedLaterHandler() {
     console.log(token);
     setWatched(() => false);
-    dispatch(addingToWatchLater({ video: videosData, token: token }));
+    dispatch(deletingWatchLater({ videoID: videosData._id, token: token }));
   }
 
   return (

@@ -6,6 +6,7 @@ import Home from "./Pages/Home/Home";
 import LandingPage from "./Pages/Landing Page/LandingPage";
 import Login from "./Pages/Authentication/Login/Login";
 import Signup from "./Pages/Authentication/SignUp/Signup";
+import WatchLater from "./Pages/WatchLater/WatchLater";
 
 function App() {
   useEffect(() => {
@@ -18,7 +19,8 @@ function App() {
         <Route path="/" element={<Home />} exact />
         <Route path="/Login" element={<Login />} />
         <Route path="/SignUp" element={<Signup />} />
-        <Route path="/LandingPage" element={<LandingPage />} exact />
+        <Route path="/LandingPage" element={<LandingPage />} />
+        <Route path="/WatchLater" element={<WatchLater />} />
       </Routes>
     </div>
   );

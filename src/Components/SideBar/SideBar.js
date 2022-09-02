@@ -5,6 +5,7 @@ import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import QueueIcon from "@mui/icons-material/Queue";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import HistoryIcon from "@mui/icons-material/History";
+import { Link } from "react-router-dom";
 
 const SideBar = () => {
   const sideBarData = [
@@ -16,22 +17,22 @@ const SideBar = () => {
     {
       title: "Liked",
       icon: <ThumbUpAltIcon />,
-      link: "Liked",
+      link: "/Liked",
     },
     {
       title: "PlayList",
       icon: <QueueIcon />,
-      link: "PlayList",
+      link: "/PlayList",
     },
     {
       title: "Watch Later",
       icon: <WatchLaterIcon />,
-      link: "WatchLater",
+      link: "/WatchLater",
     },
     {
       title: "History",
       icon: <HistoryIcon />,
-      link: "History",
+      link: "/History",
     },
   ];
 
@@ -40,17 +41,18 @@ const SideBar = () => {
       <ul className="sideBar__list">
         {sideBarData.map((val, key) => {
           return (
-            <li
+            <Link
+              to={val.link}
               key={key}
               // id={window.location.pathname == val.link ? "active" : ""}
               className="sideBar__row"
-              onClick={() => {
-                window.location.pathname = val.link;
-              }}
+              // onClick={() => {
+              //   window.location.pathname = val.link;
+              // }}
             >
               <div className="cursor icon">{val.icon}</div>
               <div className="cursor title"> {val.title}</div>
-            </li>
+            </Link>
           );
         })}
       </ul>
