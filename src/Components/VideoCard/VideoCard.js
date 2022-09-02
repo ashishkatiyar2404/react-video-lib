@@ -9,6 +9,7 @@ import {
   addingToWatchLater,
   deletingWatchLater,
 } from "../../Store/WatchLaterSlice";
+import { addingToHistory } from "../../Store/HistorySlice";
 
 const VideoCard = ({ videosData }) => {
   const dispatch = useDispatch();
@@ -19,20 +20,29 @@ const VideoCard = ({ videosData }) => {
   const { _id, title, creator, views, monthAgo, img } = videosData;
   const [watched, setWatched] = useState(false);
 
+  // ADDING TO WATCHLATER HANDLER
   function watchLaterHandler() {
     console.log(token);
     setWatched(() => true);
     dispatch(addingToWatchLater({ video: videosData, token: token }));
   }
+
+  // UNDO WATCH LATER HANDLER
   function watchedLaterHandler() {
     console.log(token);
     setWatched(() => false);
     dispatch(deletingWatchLater({ videoID: videosData._id, token: token }));
   }
 
+  // HISTORY HANDLER
+  function historyHandler(e) {
+    e.preventDefault();
+    dispatch(addingToHistory({ video: videosData, token: token }));
+  }
+
   return (
     <div className="videoCard__container">
-      <div className="thumbNail__container">
+      <div className="thumbNail__container" onClick={historyHandler}>
         <Link to={`/video/${_id}`}>
           <img
             className="thumbNailIMG"

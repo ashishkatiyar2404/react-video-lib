@@ -6,7 +6,7 @@ import "./WatchLater.css";
 
 const WatchLater = () => {
   const watchLaterVideos = useSelector((store) => store.watch.watchLater);
-  console.log(watchLaterVideos);
+  // console.log(watchLaterVideos);
   return (
     <div className="watchLater__container">
       <div className="bottom__container">

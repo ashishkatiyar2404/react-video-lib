@@ -7,6 +7,7 @@ import LandingPage from "./Pages/Landing Page/LandingPage";
 import Login from "./Pages/Authentication/Login/Login";
 import Signup from "./Pages/Authentication/SignUp/Signup";
 import WatchLater from "./Pages/WatchLater/WatchLater";
+import History from "./Pages/History/History";
 
 function App() {
   useEffect(() => {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/SignUp" element={<Signup />} />
         <Route path="/LandingPage" element={<LandingPage />} />
         <Route path="/WatchLater" element={<WatchLater />} />
+        <Route path="/History" element={<History />} />
       </Routes>
     </div>
   );

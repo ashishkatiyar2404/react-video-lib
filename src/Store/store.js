@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import videoReducer from "./videoSlice";
 import authReducer from "./AuthSlice";
 import watchLaterReducer from "./WatchLaterSlice";
+import historyReducer from "./HistorySlice";
 // import { getDefaultMiddleware } from "@reduxjs/toolkit";
 
 // const customizedMiddleware = getDefaultMiddleware({
@@ -12,6 +13,7 @@ const store = configureStore({
     video: videoReducer,
     auth: authReducer,
     watch: watchLaterReducer,
+    history: historyReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
