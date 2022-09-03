@@ -10,9 +10,7 @@ const LandingPage = () => {
 
   const dispatch = useDispatch();
   const { data, status } = useSelector((state) => state.video);
-  // console.log(STATUSES);
-  // console.log(fetchingVideos());
-  // console.log(data);
+
   useEffect(() => {
     dispatch(fetchingVideos());
   }, [dispatch]);

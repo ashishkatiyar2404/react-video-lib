@@ -1,0 +1,13 @@
+.watchLater__container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-column-gap: 5px;
+  height: 91.5vh;
+}
+
+.watchLaterVideos__container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin: 0.5rem 0rem;
+}

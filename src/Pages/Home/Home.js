@@ -5,7 +5,6 @@ import { categories } from "../../backend/db/categories";
 import CategoryList from "./CategoryList";
 
 const Home = () => {
-  console.log(categories);
   return (
     <div>
       {/* HERO SECTION */}
