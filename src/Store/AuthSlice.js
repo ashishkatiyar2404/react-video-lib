@@ -72,7 +72,6 @@ export const { logout } = authSlice.actions;
 export const userLogin = createAsyncThunk(
   "auth/userLogin",
   async (data, thunkAPI) => {
-    console.log("bulawa aaya tha", data);
     try {
       const { email, password, navigate } = data;
       const response = await axios.post("/api/auth/login", {

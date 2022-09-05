@@ -10,8 +10,15 @@ import {
 import { Link } from "react-router-dom";
 import { GiStaticWaves } from "react-icons/gi";
 import "./Navbar.css";
+// import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  // const {
+  //   user: { token },
+  // } = useSelector((store) => store.auth);
+
+  // const token = localStorage.getItem("token");
+  // console.log(token, typeof token);
   return (
     <AppBar position="static">
       <Toolbar>
@@ -27,6 +34,15 @@ const Navbar = () => {
           <Link to="/Login" className="link_btn">
             <Button color="inherit">Login</Button>
           </Link>
+          {/* {token === null ? (
+            <Link to="/Login" className="link_btn">
+              <Button color="inherit">Login</Button>
+            </Link>
+          ) : (
+            <Link to="/Home" className="link_btn">
+              <Button color="inherit">LogOut</Button>
+            </Link>
+          )} */}
         </Stack>
       </Toolbar>
     </AppBar>
