@@ -1,0 +1,44 @@
+.single_video_container {
+  margin: 0.5rem;
+}
+
+.video_description {
+  padding: 1rem;
+}
+
+.video_heading {
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+}
+
+.like_dislike_playlist_icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.like_dislike_playlist_icon > * {
+  margin: 0rem 0.2rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.video_channelProfile {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.img_container_videoID img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 0.5rem;
+}
+
+.video_channelProfile div {
+  font-size: 1.2rem;
+  font-weight: 700;
+}

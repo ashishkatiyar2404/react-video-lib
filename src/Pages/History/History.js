@@ -16,7 +16,8 @@ const History = () => {
     e.preventDefault();
     dispatch(clearAllHistory({ token: user.token }));
   }
-  console.log(historyVideos);
+
+  // console.log(historyVideos);
   return (
     <div className="watchLater__container">
       <div className="bottom__container">
