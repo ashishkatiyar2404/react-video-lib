@@ -11,16 +11,18 @@ import { addingToHistory } from "../../Store/HistorySlice";
 import { MdPlaylistAdd } from "react-icons/md";
 import { AiOutlineLike, AiFillDislike } from "react-icons/ai";
 import { GoPrimitiveDot } from "react-icons/go";
+import { addingLikes, removingLikes } from "../../Store/LikeSlice";
 
 const SingleVideoPage = () => {
   const {
     user: { token },
   } = useSelector((store) => store.auth);
+  const { likes } = useSelector((store) => store.like);
 
   let { videoID } = useParams();
   const dispatch = useDispatch();
   const [videoInfo, setVideoInfo] = useState(null);
-  console.log(videoInfo);
+  // console.log(videoInfo);
 
   // USE EFFECT?
   useEffect(() => {
@@ -34,6 +36,34 @@ const SingleVideoPage = () => {
       }
     })();
   }, [videoID]);
+
+  const ifAlreadyLiked = (likes, videoId) => {
+    return likes.some((item) => item._id === videoId);
+  };
+
+  const likeHandler = (e) => {
+    e.preventDefault();
+    if (token) {
+      if (ifAlreadyLiked(likes, videoID)) {
+        dispatch(removingLikes({ videoId: videoID, token: token }));
+      } else {
+        dispatch(addingLikes({ videoInfo: videoInfo, token: token }));
+      }
+      return;
+    }
+  };
+
+  const [alreadyLike, setPresentInLikes] = useState(
+    ifAlreadyLiked(likes, videoID)
+  );
+
+  useEffect(() => {
+    if (ifAlreadyLiked(likes, videoID)) {
+      setPresentInLikes(true);
+    } else {
+      setPresentInLikes(false);
+    }
+  }, [likes, videoID]);
 
   return (
     <div className="watchLater__container">
@@ -54,8 +84,11 @@ const SingleVideoPage = () => {
           <div className="video_heading">
             <p>{videoInfo?.title}</p>
             <p className="like_dislike_playlist_icon">
-              <AiOutlineLike />
-              <AiFillDislike />
+              {alreadyLike ? (
+                <AiFillDislike onClick={likeHandler} />
+              ) : (
+                <AiOutlineLike onClick={likeHandler} />
+              )}
               <MdPlaylistAdd />
             </p>
           </div>

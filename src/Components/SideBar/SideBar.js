@@ -17,7 +17,7 @@ const SideBar = () => {
     {
       title: "Liked",
       icon: <ThumbUpAltIcon />,
-      link: "/Liked",
+      link: "/LikedVideos",
     },
     {
       title: "PlayList",

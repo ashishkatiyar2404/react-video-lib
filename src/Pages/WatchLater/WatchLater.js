@@ -1,5 +1,7 @@
+import { Button } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Cards from "../../Components/Cards/Cards";
 import SideBar from "../../Components/SideBar/SideBar";
 import "./WatchLater.css";
@@ -20,7 +22,12 @@ const WatchLater = () => {
           ))}
         </div>
       ) : (
-        <div>Add some videos</div>
+        <div className="no_like_videos">
+          No WatchLater Videos Click here for
+          <Link className="text-decoration" to="/LandingPage">
+            <Button className="explore_btn"> Explore more</Button>
+          </Link>
+        </div>
       )}
     </div>
   );

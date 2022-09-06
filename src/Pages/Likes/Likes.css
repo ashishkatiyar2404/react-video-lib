@@ -1,0 +1,17 @@
+.likeVideos__container {
+  margin: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.no_like_videos {
+  font-size: 2rem;
+  width: max-content;
+}
+.text-decoration {
+  text-decoration: none;
+}
+
+.explore_btn {
+  font-size: 2rem;
+}
