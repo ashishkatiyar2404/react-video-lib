@@ -11,6 +11,7 @@ import WatchLater from "./Pages/WatchLater/WatchLater";
 import History from "./Pages/History/History";
 import SingleVideoPage from "./Pages/SingleVideoPage/SingleVideoPage";
 import Likes from "./Pages/Likes/Likes";
+import PlaylistPage from "./Pages/PlaylistPage/PlaylistPage";
 
 function App() {
   useEffect(() => {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/SignUp" element={<Signup />} />
         <Route path="/LikedVideos" element={<Likes />} />
         <Route path="/LandingPage" element={<LandingPage />} />
+        <Route path="/PlaylistPage" element={<PlaylistPage />} />
         <Route path="/WatchLater" element={<WatchLater />} />
         <Route path="/History" element={<History />} />
         <Route path="/video/:videoID" element={<SingleVideoPage />} />

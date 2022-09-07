@@ -22,7 +22,7 @@ const SideBar = () => {
     {
       title: "PlayList",
       icon: <QueueIcon />,
-      link: "/PlayList",
+      link: "/PlaylistPage",
     },
     {
       title: "Watch Later",

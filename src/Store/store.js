@@ -4,6 +4,7 @@ import authReducer from "./AuthSlice";
 import watchLaterReducer from "./WatchLaterSlice";
 import historyReducer from "./HistorySlice";
 import likeReducer from "./LikeSlice";
+import PlaylistReducer from "./PlayListSLice";
 // import { getDefaultMiddleware } from "@reduxjs/toolkit";
 
 // const customizedMiddleware = getDefaultMiddleware({
@@ -16,6 +17,7 @@ const store = configureStore({
     watch: watchLaterReducer,
     history: historyReducer,
     like: likeReducer,
+    playlist: PlaylistReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
