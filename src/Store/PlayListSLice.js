@@ -15,9 +15,11 @@ const playlistSlice = createSlice({
         state.status = STATUSES.IDLE;
       })
       .addCase(addingNewPlaylist.fulfilled, (state, action) => {
+        console.log(action.payload);
         if (action.payload) {
           state.playlist = action.payload.playlists;
         }
+        // console.log(first)
       })
       .addCase(addingNewPlaylist.rejected, (state) => {
         state.status = STATUSES.ERROR;

@@ -1,4 +1,4 @@
-.playlist-modal-main {
+.playlist_modal_main {
   display: flex;
 }
 
@@ -8,38 +8,42 @@
   height: 100vh;
   width: 100vw;
   top: 0;
-  left: 0;
   right: 0;
-  max-width: 100%;
+  left: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
+  background-color: rgb(245, 245, 245, 0.6);
 }
 
-.modal-playlist {
-  background-color: #1c2938;
+.modal_playlist {
+  background-color: #3270b8;
   padding: 1rem;
+  min-width: 20%;
+  border-radius: 2%;
 }
 
-.modalPlaylist-container {
+.modalPlaylist_container {
   display: flex;
   justify-content: space-between;
 }
 
-.close-btn-modal {
+.close_btn_modal {
   display: flex;
-  justify-content: flex-end;
+
+  justify-content: space-between;
 }
 
-.input-playlist {
+.input_playlist {
   color: black;
   padding: 0.1rem 0.5rem;
   border: none;
   outline: transparent;
 }
 
-.input-playlist::placeholder {
+.input_playlist::placeholder {
   color: black;
   border-radius: 0.5rem;
 }
@@ -48,17 +52,18 @@
   flex-grow: 1;
 }
 
-.plus-icon {
+.plus_icon {
   background-color: green;
   cursor: pointer;
+  padding: 0.2rem;
 }
 
-.playlist-close-btn {
-  background-color: white;
-  color: black;
+.playlist_close_btn {
+  /* background-color: white; */
+  /* color: black; */
   cursor: pointer;
-  padding: 0.2rem;
-  cursor: pointer;
+  /* padding: 0.2rem; */
+  font-size: 1.2rem;
 }
 
 .delplaylistNameIcon {

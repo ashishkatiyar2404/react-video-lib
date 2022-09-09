@@ -8,11 +8,13 @@ import {
 } from "../../Store/PlayListSLice";
 import "./Modal.css";
 import PlaylistInputForm from "./PlaylistInputForm";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 const Modal = ({ setOpenModal, video }) => {
-  const playlistsData = useSelector(
-    (state) => state.playlist.playlistManagement
-  );
+  const playlistsData = useSelector((state) => state.playlist.playlist);
+
+  console.log(playlistsData);
+
   const {
     user: { token },
   } = useSelector((store) => store.auth);
@@ -25,35 +27,32 @@ const Modal = ({ setOpenModal, video }) => {
   };
   const addVideoToPlayList = async (video, playlistId) => {
     dispatch(addingVideoToPlaylist({ video, playlistId, token }));
-    return null;
   };
   const removeVideoFromPlayList = async (videoId, playlistId) => {
     dispatch(removingVideoFromPlaylist({ videoId, playlistId, token }));
-    return null;
   };
 
   const deletePlaylist = async (playlistId) => {
     dispatch(deletingPlaylist({ token, playlistId }));
-    return null;
   };
 
   return (
     <div className="modal">
-      <div className="modal-playlist">
-        <div className="close-btn-modal">
-          <p onClick={() => setOpenModal(false)} className="cursor-pointer">
-            <span className="playlist-close-btn">X</span>
+      <div className="modal_playlist">
+        <div className="close_btn_modal">
+          <p>Add to existing playlist :-</p>
+          <p onClick={() => setOpenModal(false)} className="cursor_pointer">
+            <AiFillCloseCircle className="playlist_close_btn" />
           </p>
         </div>
         <div>
-          <p>Add to existing playlist :</p>
-          {playlistsData.map((playlist) => (
-            <div className="modalPlaylist-container" key={playlist._id}>
+          {playlistsData?.map((playlist) => (
+            <div className="modalPlaylist_container" key={playlist._id}>
               <div>
                 <input
                   type="checkbox"
                   id={playlist._id}
-                  className="input-playlist"
+                  className="input_playlist"
                   onChange={(e) => {
                     updatingPlaylist(e, video, playlist._id);
                   }}
@@ -62,7 +61,7 @@ const Modal = ({ setOpenModal, video }) => {
               </div>
 
               <FaTrash
-                className="delplaylistNameIcon white-text-color mt-1 fs-1"
+                className="delplaylistNameIcon white_text_color mt-1 fs-1"
                 onClick={() => {
                   deletePlaylist(playlist._id);
                 }}
@@ -73,7 +72,7 @@ const Modal = ({ setOpenModal, video }) => {
 
         <div>
           <p>Create new playlist :</p>
-          <PlaylistInputForm className="input-playlist" />
+          <PlaylistInputForm className="input_playlist" />
         </div>
       </div>
     </div>

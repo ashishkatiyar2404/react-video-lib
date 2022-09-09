@@ -3,12 +3,17 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import SideBar from "../../Components/SideBar/SideBar";
-import { fetchingAllPlaylists } from "../../Store/PlayListSLice";
+import { FaTrash } from "react-icons/fa";
+import {
+  deletingPlaylist,
+  fetchingAllPlaylists,
+} from "../../Store/PlayListSLice";
 import "./PlaylistPage.css";
+import VideoCard from "../../Components/VideoCard/VideoCard";
 
 const PlaylistPage = () => {
   const dispatch = useDispatch();
-  const playlist = useSelector((store) => store.playlist.playlistManagement);
+  const playlist = useSelector((store) => store.playlist.playlist);
   const {
     user: { token },
   } = useSelector((store) => store.auth);
@@ -17,7 +22,12 @@ const PlaylistPage = () => {
     dispatch(fetchingAllPlaylists({ token }));
     // eslint-disable-next-line
   }, []);
-  console.log(playlist);
+  // console.log(playlist, "d");
+
+  // DELETING WHOLE PLAYLIST
+  const deletingWholePlaylist = (playlistId) => {
+    dispatch(deletingPlaylist({ token, playlistId }));
+  };
 
   return (
     <main className="playlist_management_container watchLater__container">
@@ -25,7 +35,26 @@ const PlaylistPage = () => {
         <SideBar />
       </div>
       {playlist.length > 0 ? (
-        "yes there are"
+        playlist.map((everyPlaylist) => {
+          return (
+            <div className="playlistVideo" key={everyPlaylist._id}>
+              <div className="playlistName-title">
+                <h1>{everyPlaylist.title}</h1>
+                <FaTrash
+                  className="playlistDeleteIcon"
+                  onClick={() => deletingWholePlaylist(everyPlaylist._id)}
+                />
+              </div>
+              <div className="d-flex">
+                {everyPlaylist.videos.map((videosData) => {
+                  return (
+                    <VideoCard videosData={videosData} key={videosData._id} />
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })
       ) : (
         <div className="noPlayList_exist">
           No Playlist Exist <Link to="/LandingPage">Explore Videos</Link>

@@ -1,37 +1,37 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BiPlus } from "react-icons/bi";
+// import { BiPlus } from "react-icons/bi";
 import { addingNewPlaylist } from "../../Store/PlayListSLice";
 import "./Modal.css";
 
 const PlaylistInputForm = () => {
   const [playlistName, setPlayListName] = useState("");
-  const inputPlaylistDispatch = useDispatch();
+  const dispatch = useDispatch();
   const {
     user: { token },
   } = useSelector((store) => store.auth);
 
   const addPlaylistNameHandler = async (playlistName) => {
     const playlist = { title: playlistName };
-    inputPlaylistDispatch(addingNewPlaylist({ playlist, token }));
+    dispatch(addingNewPlaylist({ playlist, token }));
     setPlayListName(" ");
-    return null;
   };
   return (
-    <div className="playlist-modal-main">
+    <div className="playlist_modal_main">
       <input
         type="text"
-        placeholder="Add here..."
-        className="input-playlist grow"
+        placeholder="Enter new Playlist name"
+        className="input_playlist grow"
         autoFocus={true}
         value={playlistName}
         onChange={(e) => setPlayListName(e.target.value)}
       />
       <span
-        className="plus-icon"
+        className="plus_icon"
         onClick={() => addPlaylistNameHandler(playlistName)}
       >
-        <BiPlus size="20px" />
+        Create
+        {/* <BiPlus size="20px" /> */}
       </span>
     </div>
   );
