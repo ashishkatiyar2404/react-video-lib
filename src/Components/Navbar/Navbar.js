@@ -23,14 +23,20 @@ const Navbar = () => {
     <AppBar position="static">
       <Toolbar>
         <IconButton size="large" edge="start" color="inherit" aria-label="logo">
-          <GiStaticWaves />
+          <Link to="/" className="wave">
+            <GiStaticWaves />
+          </Link>
         </IconButton>
         <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
           Wave Library
         </Typography>
         <Stack direction="row" spacing={2}>
-          <Button color="inherit">Categories</Button>
-          <Button color="inherit">Explore</Button>
+          {/* <Link to="/" className="link_btn">
+            <Button color="inherit">Categories</Button>
+          </Link> */}
+          <Link to="/LandingPage" className="link_btn">
+            <Button color="inherit">Explore</Button>
+          </Link>
           <Link to="/Login" className="link_btn">
             <Button color="inherit">Login</Button>
           </Link>

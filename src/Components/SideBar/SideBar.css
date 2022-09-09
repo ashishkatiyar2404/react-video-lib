@@ -38,3 +38,7 @@
 .title {
   flex: 70%;
 }
+
+a.active {
+  background-color: #1976d2;
+}
