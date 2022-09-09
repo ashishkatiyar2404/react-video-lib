@@ -10,6 +10,7 @@ import {
 } from "../../Store/PlayListSLice";
 import "./PlaylistPage.css";
 import VideoCard from "../../Components/VideoCard/VideoCard";
+import "./PlaylistPage.css";
 
 const PlaylistPage = () => {
   const dispatch = useDispatch();
@@ -30,36 +31,40 @@ const PlaylistPage = () => {
   };
 
   return (
-    <main className="playlist_management_container watchLater__container">
+    <main className="playlist_management_container">
       <div className="bottom__container">
         <SideBar />
       </div>
-      {playlist.length > 0 ? (
-        playlist.map((everyPlaylist) => {
-          return (
-            <div className="playlistVideo" key={everyPlaylist._id}>
-              <div className="playlistName-title">
-                <h1>{everyPlaylist.title}</h1>
-                <FaTrash
-                  className="playlistDeleteIcon"
-                  onClick={() => deletingWholePlaylist(everyPlaylist._id)}
-                />
+      <div className="playlist_container">
+        {playlist.length > 0 ? (
+          playlist.map((everyPlaylist) => {
+            return (
+              <div className="playlistVideo" key={everyPlaylist._id}>
+                <div className="playlistName_title">
+                  <h1>{everyPlaylist.title} </h1>
+                  <p>
+                    <FaTrash
+                      className="playlistDeleteIcon"
+                      onClick={() => deletingWholePlaylist(everyPlaylist._id)}
+                    />
+                  </p>
+                </div>
+                <div className="perticularPlaylistVideo">
+                  {everyPlaylist.videos.map((videosData) => {
+                    return (
+                      <VideoCard videosData={videosData} key={videosData._id} />
+                    );
+                  })}
+                </div>
               </div>
-              <div className="d-flex">
-                {everyPlaylist.videos.map((videosData) => {
-                  return (
-                    <VideoCard videosData={videosData} key={videosData._id} />
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })
-      ) : (
-        <div className="noPlayList_exist">
-          No Playlist Exist <Link to="/LandingPage">Explore Videos</Link>
-        </div>
-      )}
+            );
+          })
+        ) : (
+          <div className="noPlayList_exist">
+            No Playlist Exist <Link to="/LandingPage">Explore Videos</Link>
+          </div>
+        )}
+      </div>
     </main>
   );
 };
