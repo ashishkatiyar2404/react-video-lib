@@ -5,7 +5,7 @@ import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import QueueIcon from "@mui/icons-material/Queue";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import HistoryIcon from "@mui/icons-material/History";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const SideBar = () => {
   const sideBarData = [
@@ -22,7 +22,7 @@ const SideBar = () => {
     {
       title: "PlayList",
       icon: <QueueIcon />,
-      link: "/PlayList",
+      link: "/PlaylistPage",
     },
     {
       title: "Watch Later",
@@ -41,7 +41,7 @@ const SideBar = () => {
       <ul className="sideBar__list">
         {sideBarData.map((val, key) => {
           return (
-            <Link
+            <NavLink
               to={val.link}
               key={key}
               // id={window.location.pathname == val.link ? "active" : ""}
@@ -52,7 +52,7 @@ const SideBar = () => {
             >
               <div className="cursor icon">{val.icon}</div>
               <div className="cursor title"> {val.title}</div>
-            </Link>
+            </NavLink>
           );
         })}
       </ul>

@@ -1,0 +1,33 @@
+.playlist_management_container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-column-gap: 5px;
+  height: 91.5vh;
+}
+.playlist_container {
+  margin-left: 1rem;
+}
+
+.playlistVideo {
+  min-height: fit-content;
+}
+
+.perticularPlaylistVideo {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.playlistName_title {
+  display: flex;
+  width: 20%;
+  justify-content: space-between;
+  align-items: baseline;
+  background-color: #0d6dcc;
+  border-radius: 2rem;
+  padding: 0rem 1rem;
+  /* height: 5vh; */
+}
+
+.playlistDeleteIcon {
+  cursor: pointer;
+}

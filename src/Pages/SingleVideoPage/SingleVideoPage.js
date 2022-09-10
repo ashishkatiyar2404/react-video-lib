@@ -4,14 +4,14 @@ import "./SingleVideoPage.css";
 import ReactPlayer from "react-player/youtube";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { addingToHistory } from "../../Store/HistorySlice";
 import { MdPlaylistAdd } from "react-icons/md";
 import { AiOutlineLike, AiFillDislike } from "react-icons/ai";
 import { GoPrimitiveDot } from "react-icons/go";
 import { addingLikes, removingLikes } from "../../Store/LikeSlice";
+import PlaylistPortal from "../../Components/PortalAndModal/PlaylistPortal";
 
 const SingleVideoPage = () => {
   const {
@@ -22,7 +22,7 @@ const SingleVideoPage = () => {
   let { videoID } = useParams();
   const dispatch = useDispatch();
   const [videoInfo, setVideoInfo] = useState(null);
-  // console.log(videoInfo);
+  const [openModal, setOpenModal] = useState(false);
 
   // USE EFFECT?
   useEffect(() => {
@@ -65,12 +65,24 @@ const SingleVideoPage = () => {
     }
   }, [likes, videoID]);
 
+  function playlistHandler(e) {
+    e.preventDefault();
+    if (token) {
+      setOpenModal(true);
+    } else {
+      console.alert("LOGIN FIRST");
+    }
+  }
+
   return (
     <div className="watchLater__container">
       <div className="bottom__container">
         <SideBar />
       </div>
       <div className="single_video_container">
+        {openModal ? (
+          <PlaylistPortal video={videoInfo} setOpenModal={setOpenModal} />
+        ) : null}
         <ReactPlayer
           url={`https://www.youtube.com/watch?v=${videoID}`}
           width={"100%"}
@@ -89,7 +101,7 @@ const SingleVideoPage = () => {
               ) : (
                 <AiOutlineLike onClick={likeHandler} />
               )}
-              <MdPlaylistAdd />
+              <MdPlaylistAdd onClick={playlistHandler} />
             </p>
           </div>
 

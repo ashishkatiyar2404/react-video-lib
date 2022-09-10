@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { TbPlaylistAdd } from "react-icons/tb";
+// import { TbPlaylistAdd } from "react-icons/tb";
 import { BsFillCheckCircleFill, BsDot } from "react-icons/bs";
 import { MdOutlineWatchLater, MdWatchLater } from "react-icons/md";
 import "./VideoCard.css";
@@ -57,7 +57,7 @@ const VideoCard = ({ videosData }) => {
         </div>
         <div className="creator">
           <p>{title}</p>
-          <TbPlaylistAdd className="icon__playList" />
+          {/* <TbPlaylistAdd className="icon__playList" /> */}
         </div>
       </div>
       <div className="viewsAndMonth">
