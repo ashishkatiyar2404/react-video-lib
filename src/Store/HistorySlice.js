@@ -74,8 +74,7 @@ export const clearAllHistory = createAsyncThunk(
           authorization: data.token,
         },
       });
-      console.log(response.data);
-      console.log("FROM CLEAR ALL HISTORY");
+
       return response.data;
     } catch (ERROR) {
       return thunkAPI.rejectWithValue(ERROR);
@@ -97,8 +96,6 @@ export const addingToHistory = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
-      console.log("FROM ADDING TO HISTORY");
       return response.data;
     } catch (ERROR) {
       return thunkAPI.rejectWithValue(ERROR);
@@ -115,8 +112,7 @@ export const fetchingHistory = createAsyncThunk(
           authorization: data.token,
         },
       });
-      console.log(response.data);
-      console.log("FROM FETCHING HISTORY");
+
       return response.data;
     } catch (ERROR) {
       return thunkAPI.rejectWithValue(ERROR);

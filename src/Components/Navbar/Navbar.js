@@ -19,8 +19,6 @@ const Navbar = () => {
     user: { token },
   } = useSelector((store) => store.auth);
 
-  const tokens = localStorage.getItem("token");
-  console.log(tokens, typeof token);
   return (
     <AppBar position="static">
       <Toolbar>
@@ -36,7 +34,7 @@ const Navbar = () => {
           <Link to="/LandingPage" className="link_btn">
             <Button color="inherit">Explore</Button>
           </Link>
-          {tokens === null ? (
+          {token === null ? (
             <Link to="/Login" className="link_btn">
               <Button color="inherit">Login</Button>
             </Link>
