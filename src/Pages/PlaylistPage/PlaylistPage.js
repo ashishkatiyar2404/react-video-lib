@@ -36,8 +36,8 @@ const PlaylistPage = () => {
         <SideBar />
       </div>
       <div className="playlist_container">
-        {playlist.length > 0 ? (
-          playlist.map((everyPlaylist) => {
+        {playlist?.length > 0 ? (
+          playlist?.map((everyPlaylist) => {
             return (
               <div className="playlistVideo" key={everyPlaylist._id}>
                 <div className="playlistName_title">
