@@ -23,7 +23,6 @@ const PlaylistPage = () => {
     dispatch(fetchingAllPlaylists({ token }));
     // eslint-disable-next-line
   }, []);
-  // console.log(playlist, "d");
 
   // DELETING WHOLE PLAYLIST
   const deletingWholePlaylist = (playlistId) => {

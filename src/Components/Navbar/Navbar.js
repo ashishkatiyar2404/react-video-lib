@@ -33,15 +33,9 @@ const Navbar = () => {
           Wave Library
         </Typography>
         <Stack direction="row" spacing={2}>
-          {/* <Link to="/" className="link_btn">
-            <Button color="inherit">Categories</Button>
-          </Link> */}
           <Link to="/LandingPage" className="link_btn">
             <Button color="inherit">Explore</Button>
           </Link>
-          {/* <Link to="/Login" className="link_btn">
-            <Button color="inherit">Login</Button>
-          </Link> */}
           {tokens === null ? (
             <Link to="/Login" className="link_btn">
               <Button color="inherit">Login</Button>

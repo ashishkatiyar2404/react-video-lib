@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { removingLikes } from "../../Store/LikeSlice";
 import { TiDelete } from "react-icons/ti";
-// import { BsDot } from "react-icons/bs";
 import "./LikeCard.css";
 
 const LikeCard = ({ videos }) => {

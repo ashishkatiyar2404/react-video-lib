@@ -103,11 +103,6 @@ input[type="submit"],
   width: 50%;
   height: 3rem;
   border: 1px solid;
-  /* background: linear-gradient(
-    45deg,
-    var(--linear-gradient-1) 50%,
-    var(--linear-gradient-2) 50%
-  ); */
   border-radius: 1.8rem;
   font-size: 1.2rem;
   color: var(--white-color-shade);

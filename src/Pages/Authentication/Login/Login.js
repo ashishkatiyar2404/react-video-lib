@@ -50,7 +50,6 @@ const Login = () => {
           <input
             type="text"
             name="email"
-            // value={loginData.email}
             required
             onChange={inputChangeHandler}
           />
@@ -61,7 +60,6 @@ const Login = () => {
           <input
             type="password"
             name="password"
-            // value={loginData.password}
             required
             onChange={inputChangeHandler}
           />

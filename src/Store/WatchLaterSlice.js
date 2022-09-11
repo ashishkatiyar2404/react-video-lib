@@ -17,7 +17,6 @@ const watchLaterSlice = createSlice({
       })
       .addCase(fetchWatchLater.fulfilled, (state, action) => {
         state.status = STATUSES.IDLE;
-        // action.payload ? (state.watchLater = action.payload.watchLater) : "";
         if (action.payload) {
           state.watchLater = action.payload.watchlater;
         }

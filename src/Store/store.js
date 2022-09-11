@@ -6,7 +6,6 @@ import historyReducer from "./HistorySlice";
 import likeReducer from "./LikeSlice";
 import PlaylistReducer from "./PlayListSLice";
 // import { getDefaultMiddleware } from "@reduxjs/toolkit";
-
 // const customizedMiddleware = getDefaultMiddleware({
 //   serializableCheck: false,
 // });

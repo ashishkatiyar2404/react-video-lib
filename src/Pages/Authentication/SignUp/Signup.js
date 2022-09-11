@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { userSignUp } from "../../../Store/AuthSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { Link } from "react-router-dom";
 
 const Signup = () => {
   const dispatch = useDispatch();
