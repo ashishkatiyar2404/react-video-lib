@@ -12,6 +12,7 @@ import History from "./Pages/History/History";
 import SingleVideoPage from "./Pages/SingleVideoPage/SingleVideoPage";
 import Likes from "./Pages/Likes/Likes";
 import PlaylistPage from "./Pages/PlaylistPage/PlaylistPage";
+import AuthRequire from "./Pages/Authentication/RequiredAuth";
 
 function App() {
   useEffect(() => {
@@ -24,12 +25,42 @@ function App() {
         <Route path="/" element={<Home />} exact />
         <Route path="/Login" element={<Login />} />
         <Route path="/SignUp" element={<Signup />} />
-        <Route path="/LikedVideos" element={<Likes />} />
         <Route path="/LandingPage" element={<LandingPage />} />
-        <Route path="/PlaylistPage" element={<PlaylistPage />} />
-        <Route path="/WatchLater" element={<WatchLater />} />
-        <Route path="/History" element={<History />} />
         <Route path="/video/:videoID" element={<SingleVideoPage />} />
+
+        <Route
+          path="/LikedVideos"
+          element={
+            <AuthRequire>
+              <Likes />
+            </AuthRequire>
+          }
+        />
+        <Route
+          path="/PlaylistPage"
+          element={
+            <AuthRequire>
+              <PlaylistPage />
+            </AuthRequire>
+          }
+        />
+        <Route
+          path="/WatchLater"
+          element={
+            <AuthRequire>
+              <WatchLater />
+            </AuthRequire>
+          }
+        />
+
+        <Route
+          path="/History"
+          element={
+            <AuthRequire>
+              <History />
+            </AuthRequire>
+          }
+        />
         <Route path="/mockapi" element={<Mockman />} />
       </Routes>
     </div>

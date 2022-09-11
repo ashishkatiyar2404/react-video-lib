@@ -21,14 +21,16 @@ const VideoCard = ({ videosData }) => {
 
   // ADDING TO WATCHLATER HANDLER
   function watchLaterHandler() {
-    console.log(token);
-    setWatched(() => true);
-    dispatch(addingToWatchLater({ video: videosData, token: token }));
+    if (token) {
+      setWatched(() => true);
+      dispatch(addingToWatchLater({ video: videosData, token: token }));
+    } else {
+      alert("Login First");
+    }
   }
 
   // UNDO WATCH LATER HANDLER
   function watchedLaterHandler() {
-    console.log(token);
     setWatched(() => false);
     dispatch(deletingWatchLater({ videoID: videosData._id, token: token }));
   }
