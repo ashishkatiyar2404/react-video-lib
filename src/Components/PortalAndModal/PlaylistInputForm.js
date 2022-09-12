@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { BiPlus } from "react-icons/bi";
 import { addingNewPlaylist } from "../../Store/PlayListSLice";
 import "./Modal.css";
 
@@ -31,7 +30,6 @@ const PlaylistInputForm = () => {
         onClick={() => addPlaylistNameHandler(playlistName)}
       >
         Create
-        {/* <BiPlus size="20px" /> */}
       </span>
     </div>
   );

@@ -23,7 +23,6 @@ const PlaylistPage = () => {
     dispatch(fetchingAllPlaylists({ token }));
     // eslint-disable-next-line
   }, []);
-  // console.log(playlist, "d");
 
   // DELETING WHOLE PLAYLIST
   const deletingWholePlaylist = (playlistId) => {
@@ -36,8 +35,8 @@ const PlaylistPage = () => {
         <SideBar />
       </div>
       <div className="playlist_container">
-        {playlist.length > 0 ? (
-          playlist.map((everyPlaylist) => {
+        {playlist?.length > 0 ? (
+          playlist?.map((everyPlaylist) => {
             return (
               <div className="playlistVideo" key={everyPlaylist._id}>
                 <div className="playlistName_title">

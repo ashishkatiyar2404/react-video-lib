@@ -41,15 +41,7 @@ const SideBar = () => {
       <ul className="sideBar__list">
         {sideBarData.map((val, key) => {
           return (
-            <NavLink
-              to={val.link}
-              key={key}
-              // id={window.location.pathname == val.link ? "active" : ""}
-              className="sideBar__row"
-              // onClick={() => {
-              //   window.location.pathname = val.link;
-              // }}
-            >
+            <NavLink to={val.link} key={key} className="sideBar__row">
               <div className="cursor icon">{val.icon}</div>
               <div className="cursor title"> {val.title}</div>
             </NavLink>

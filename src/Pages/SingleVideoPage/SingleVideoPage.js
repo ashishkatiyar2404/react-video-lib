@@ -29,7 +29,6 @@ const SingleVideoPage = () => {
     (async () => {
       try {
         const response = await axios.get(`/api/video/${videoID}`);
-        console.log("apun hogya");
         setVideoInfo(response.data.video);
       } catch (ERROR) {
         console.log("MAI DIKKT DUNGA", ERROR);
@@ -86,7 +85,6 @@ const SingleVideoPage = () => {
         <ReactPlayer
           url={`https://www.youtube.com/watch?v=${videoID}`}
           width={"100%"}
-          // height="30rem"
           controls={true}
           style={{ aspectRatio: "auto" }}
           playing

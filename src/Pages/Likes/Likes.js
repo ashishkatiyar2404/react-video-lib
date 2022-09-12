@@ -8,7 +8,6 @@ import "./Likes.css";
 
 const Likes = () => {
   const likeVideos = useSelector((store) => store.like.likes);
-  // console.log(likeVideos);
   return (
     <div className="watchLater__container">
       <div className="bottom__container">

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import { TbPlaylistAdd } from "react-icons/tb";
 import { BsFillCheckCircleFill, BsDot } from "react-icons/bs";
 import { MdOutlineWatchLater, MdWatchLater } from "react-icons/md";
 import "./VideoCard.css";
@@ -22,14 +21,16 @@ const VideoCard = ({ videosData }) => {
 
   // ADDING TO WATCHLATER HANDLER
   function watchLaterHandler() {
-    console.log(token);
-    setWatched(() => true);
-    dispatch(addingToWatchLater({ video: videosData, token: token }));
+    if (token) {
+      setWatched(() => true);
+      dispatch(addingToWatchLater({ video: videosData, token: token }));
+    } else {
+      alert("Login First");
+    }
   }
 
   // UNDO WATCH LATER HANDLER
   function watchedLaterHandler() {
-    console.log(token);
     setWatched(() => false);
     dispatch(deletingWatchLater({ videoID: videosData._id, token: token }));
   }
@@ -57,7 +58,6 @@ const VideoCard = ({ videosData }) => {
         </div>
         <div className="creator">
           <p>{title}</p>
-          {/* <TbPlaylistAdd className="icon__playList" /> */}
         </div>
       </div>
       <div className="viewsAndMonth">
