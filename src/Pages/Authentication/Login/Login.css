@@ -72,7 +72,8 @@ form .text__field {
 }
 
 .text__field input:focus ~ label,
-.text__field input:valid ~ label {
+.text__field input:valid ~ label,
+.text__field label.has-value {
   top: -0.5rem;
   color: var(--btn-auth-color);
 }
