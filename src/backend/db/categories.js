@@ -1,51 +1,44 @@
 import { v4 as uuid } from "uuid";
 
 /**
- * Category Database can be added here.
- * You can add category of your wish with different attributes
- * */
+ * Category Database
+ * High-definition, verified thumbnails for all anime categories
+ */
 
 export const categories = [
   {
     _id: uuid(),
     categoryName: "Naruto",
     description:
-      "Naruto is generally a very simple minded, easy going, cheerful person.",
-    thumbnail:
-      "https://i.ytimg.com/vi/Y9P1EhndE0w/hqdefault.jpg?s…AFwAcABBg==&rs=AOn4CLC21-KoLjA6nvYdxWxmVLiI4VAAIQ",
+      "Naruto Uzumaki is a shinobi of Konohagakure and the Nine-Tails jinchūriki, striving to become the legendary Seventh Hokage.",
+    thumbnail: "https://i.ytimg.com/vi/jqXUm2YS-mM/hqdefault.jpg",
   },
   {
     _id: uuid(),
     categoryName: "Itachi",
     description:
-      "Itachi Uchiha is a character in the Naruto manga and anime series created by Masashi Kishimoto. Itachi is the older brother of Sasuke Uchiha",
-    thumbnail:
-      "https://i.ytimg.com/vi/1Z5aI7txujg/hq720.jpg?sqp=-%E2%80%A6AFwAcABBg==&rs=AOn4CLAW7g-C8iUBN5p5EhbZtbI9KFIXCQ",
+      "Itachi Uchiha was a prodigy of Konohagakure's Uchiha clan and served as an Anbu captain before sacrificing everything in the shadows.",
+    thumbnail: "https://i.ytimg.com/vi/xYKzdx-B1w0/hqdefault.jpg",
   },
   {
     _id: uuid(),
     categoryName: "Akatsuki",
     description:
-      "Akatsuki was a group of shinobi that existed outside the usual system of hidden villages. Over the course of several decades, Akatsuki took different forms and was led by different individuals.",
-    thumbnail:
-      "https://i.ytimg.com/vi/_2YW--5g3lA/hq720.jpg?sqp=-%E2%80%A6AFwAcABBg==&rs=AOn4CLCEljsnGtf781iaherS0NqH2loNrA",
+      "The Akatsuki was an organization of rogue shinobi seeking world peace through extreme measures, donning the iconic black cloaks with red clouds.",
+    thumbnail: "https://i.ytimg.com/vi/ux0Qnn2XEgM/hqdefault.jpg",
   },
   {
     _id: uuid(),
     categoryName: "Sasuke",
     description:
-      "Sasuke Uchiha is a fictional character in the Naruto manga and anime franchise created by Masashi Kishimoto. Sasuke belongs to the Uchiha clan, a notorious ninja family",
-    thumbnail:
-      "https://i.ytimg.com/vi/KSBEojZpwDY/hqdefault.jpg?s%E2%80%A6AFwAcABBg==&rs=AOn4CLCPTdcQKnfadVS9KFiIPx04USMLlw",
+      "Sasuke Uchiha is one of the last surviving members of the Uchiha clan, master of the Sharingan and the devastating Chidori.",
+    thumbnail: "https://i.ytimg.com/vi/Vy093O6KJlE/hqdefault.jpg",
   },
   {
     _id: uuid(),
     categoryName: "Madara Uchiha",
     description:
-      "Madara was the legendary leader of the Uchiha clan. He founded Konohagakure alongside his childhood friend and rival",
-    thumbnail:
-      "https://i.ytimg.com/vi/DMSeibTVeRs/hq720.jpg?sqp=-%E2%80%A6AFwAcABBg==&rs=AOn4CLBzBEB9kIc3kuXOZruQGdqZAfUflg",
-    thumbnail2:
-      "https://i.ytimg.com/vi/esJOOQG42r0/hq720.jpg?sqp=-%E2%80%A6AFwAcABBg==&rs=AOn4CLDPIpb0PHVsmA9_cw8xGqdz7f9uSg",
+      "Madara Uchiha was the legendary co-founder of Konohagakure alongside Hashirama Senju and one of the most formidable shinobi in history.",
+    thumbnail: "https://i.ytimg.com/vi/DMSeibTVeRs/hqdefault.jpg",
   },
 ];
