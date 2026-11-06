@@ -1,93 +1,6 @@
 import axios from "axios";
 import { STATUSES } from "./videoSlice";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-const playlistSlice = createSlice({
-  name: "playlist",
-  initialState: {
-    playlistManagement: [],
-    status: STATUSES.IDLE,
-  },
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(addingNewPlaylist.pending, (state) => {
-        state.status = STATUSES.IDLE;
-      })
-      .addCase(addingNewPlaylist.fulfilled, (state, action) => {
-        console.log(action.payload);
-        if (action.payload) {
-          state.playlist = action.payload.playlists;
-        }
-      })
-      .addCase(addingNewPlaylist.rejected, (state) => {
-        state.status = STATUSES.ERROR;
-      })
-
-      .addCase(deletingPlaylist.pending, (state) => {
-        state.status = STATUSES.IDLE;
-      })
-      .addCase(deletingPlaylist.fulfilled, (state, action) => {
-        if (action.payload) {
-          state.playlist = action.payload.playlists;
-        }
-      })
-      .addCase(deletingPlaylist.rejected, (state) => {
-        state.status = STATUSES.ERROR;
-      })
-
-      .addCase(addingVideoToPlaylist.pending, (state) => {
-        state.status = STATUSES.IDLE;
-      })
-      .addCase(addingVideoToPlaylist.fulfilled, (state, action) => {
-        if (action.payload) {
-          const updatedPlaylists = state.playlist.map((item) => {
-            if (action.payload.playlist._id === item._id) {
-              return action.payload.playlist;
-            } else {
-              return item;
-            }
-          });
-          state.playlist = updatedPlaylists;
-        }
-      })
-      .addCase(addingVideoToPlaylist.rejected, (state) => {
-        state.status = STATUSES.ERROR;
-      })
-
-      .addCase(removingVideoFromPlaylist.pending, (state) => {
-        state.status = STATUSES.IDLE;
-      })
-      .addCase(removingVideoFromPlaylist.fulfilled, (state, action) => {
-        if (action.payload) {
-          const updatedRemovePlaylists = state.playlist.map((item) => {
-            if (action.payload.playlist._id === item._id) {
-              return action.payload.playlist;
-            } else {
-              return item;
-            }
-          });
-          state.playlist = updatedRemovePlaylists;
-        }
-      })
-      .addCase(removingVideoFromPlaylist.rejected, (state) => {
-        state.status = STATUSES.ERROR;
-      })
-      .addCase(fetchingAllPlaylists.pending, (state) => {
-        state.status = STATUSES.IDLE;
-      })
-      .addCase(fetchingAllPlaylists.fulfilled, (state, action) => {
-        if (action.payload) {
-          state.playlist = action.payload.playlists;
-        }
-      })
-      .addCase(fetchingAllPlaylists.rejected, (state) => {
-        state.status = STATUSES.ERROR;
-      });
-  },
-});
-
-export default playlistSlice.reducer;
+import { createAsyncThunk, createSlice, createSelector } from "@reduxjs/toolkit";
 
 // API FOR ADDING NEW PLAYLIST
 export const addingNewPlaylist = createAsyncThunk(
@@ -106,10 +19,11 @@ export const addingNewPlaylist = createAsyncThunk(
           },
         }
       );
-      console.log(response.data, "ADDING NEW PLAYLIST IN PLAYLIST MANAGEMENT");
       return response.data;
-    } catch (ERROR) {
-      thunkAPI.rejectWithValue(ERROR);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Failed to create playlist"
+      );
     }
   }
 );
@@ -126,8 +40,10 @@ export const deletingPlaylist = createAsyncThunk(
         },
       });
       return response.data;
-    } catch (ERROR) {
-      thunkAPI.rejectWithValue(ERROR);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Failed to delete playlist"
+      );
     }
   }
 );
@@ -150,8 +66,10 @@ export const addingVideoToPlaylist = createAsyncThunk(
         }
       );
       return response.data;
-    } catch (ERROR) {
-      thunkAPI.rejectWithValue(ERROR);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Failed to add video to playlist"
+      );
     }
   }
 );
@@ -171,8 +89,10 @@ export const removingVideoFromPlaylist = createAsyncThunk(
         }
       );
       return response.data;
-    } catch (ERROR) {
-      thunkAPI.rejectWithValue(ERROR);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Failed to remove video from playlist"
+      );
     }
   }
 );
@@ -189,8 +109,112 @@ export const fetchingAllPlaylists = createAsyncThunk(
         },
       });
       return response.data;
-    } catch (ERROR) {
-      return thunkAPI.rejectWithValue(ERROR);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Failed to fetch playlists"
+      );
     }
   }
+);
+
+const initialState = {
+  playlist: [],
+  status: STATUSES.IDLE,
+  error: null,
+};
+
+const playlistSlice = createSlice({
+  name: "playlist",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(addingNewPlaylist.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(addingNewPlaylist.fulfilled, (state, action) => {
+        state.status = STATUSES.SUCCEEDED;
+        if (action.payload?.playlists) {
+          state.playlist = action.payload.playlists;
+        }
+      })
+      .addCase(addingNewPlaylist.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
+        state.error = action.payload;
+      })
+      .addCase(deletingPlaylist.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(deletingPlaylist.fulfilled, (state, action) => {
+        state.status = STATUSES.SUCCEEDED;
+        if (action.payload?.playlists) {
+          state.playlist = action.payload.playlists;
+        }
+      })
+      .addCase(deletingPlaylist.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
+        state.error = action.payload;
+      })
+      .addCase(addingVideoToPlaylist.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(addingVideoToPlaylist.fulfilled, (state, action) => {
+        state.status = STATUSES.SUCCEEDED;
+        if (action.payload?.playlist) {
+          const index = state.playlist.findIndex(
+            (p) => p._id === action.payload.playlist._id
+          );
+          if (index !== -1) {
+            state.playlist[index] = action.payload.playlist;
+          } else {
+            state.playlist.push(action.payload.playlist);
+          }
+        }
+      })
+      .addCase(addingVideoToPlaylist.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
+        state.error = action.payload;
+      })
+      .addCase(removingVideoFromPlaylist.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(removingVideoFromPlaylist.fulfilled, (state, action) => {
+        state.status = STATUSES.SUCCEEDED;
+        if (action.payload?.playlist) {
+          const index = state.playlist.findIndex(
+            (p) => p._id === action.payload.playlist._id
+          );
+          if (index !== -1) {
+            state.playlist[index] = action.payload.playlist;
+          }
+        }
+      })
+      .addCase(removingVideoFromPlaylist.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
+        state.error = action.payload;
+      })
+      .addCase(fetchingAllPlaylists.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(fetchingAllPlaylists.fulfilled, (state, action) => {
+        state.status = STATUSES.SUCCEEDED;
+        if (action.payload?.playlists) {
+          state.playlist = action.payload.playlists;
+        }
+      })
+      .addCase(fetchingAllPlaylists.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
+        state.error = action.payload;
+      });
+  },
+});
+
+export default playlistSlice.reducer;
+
+// Memoized Selectors
+export const selectPlaylistState = (state) => state.playlist;
+
+export const selectAllPlaylists = createSelector(
+  [selectPlaylistState],
+  (playlistState) => playlistState?.playlist || []
 );

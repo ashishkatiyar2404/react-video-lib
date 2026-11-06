@@ -1,49 +1,72 @@
 import axios from "axios";
+import { createAsyncThunk, createSlice, createSelector } from "@reduxjs/toolkit";
 
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-// STATUS'S
+// Standardized Statuses
 export const STATUSES = Object.freeze({
-  LOADING: "Loading",
-  ERROR: "Error",
-  IDLE: "Idle",
+  LOADING: "loading",
+  ERROR: "error",
+  IDLE: "idle",
+  SUCCEEDED: "succeeded",
 });
 
 const initialState = {
   data: [],
   status: STATUSES.IDLE,
+  error: null,
 };
 
-//CREATING VIDEO SLICE
+export const fetchingVideos = createAsyncThunk(
+  "video/fetchingVideos",
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get("/api/videos");
+      return response.data.videos;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message || "Failed to fetch videos"
+      );
+    }
+  }
+);
+
 const videoSlice = createSlice({
   name: "video",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchingVideos.pending, (state) => {
-      state.status = STATUSES.LOADING;
-    });
-    builder.addCase(fetchingVideos.fulfilled, (state, action) => {
-      state.status = STATUSES.IDLE;
-      state.data = action.payload;
-    });
-    builder.addCase(fetchingVideos.rejected, (state, action) => {
-      state.status = STATUSES.ERROR;
-    });
+    builder
+      .addCase(fetchingVideos.pending, (state) => {
+        state.status = STATUSES.LOADING;
+        state.error = null;
+      })
+      .addCase(fetchingVideos.fulfilled, (state, action) => {
+        state.status = STATUSES.SUCCEEDED;
+        state.data = action.payload || [];
+      })
+      .addCase(fetchingVideos.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
+        state.error = action.payload || "Failed to fetch videos";
+      });
   },
 });
 
-export const fetchingVideos = createAsyncThunk(
-  "video/fetchingVideos",
-  async (thunkAPI) => {
-    try {
-      const response = await axios.get("/api/videos");
-      return response.data.videos;
-    } catch (error) {
-      console.log(error);
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
+export default videoSlice.reducer;
+
+// Memoized Selectors
+export const selectVideoState = (state) => state.video;
+
+export const selectAllVideos = createSelector(
+  [selectVideoState],
+  (videoState) => videoState?.data || []
 );
 
-export default videoSlice.reducer;
+export const selectVideoStatus = createSelector(
+  [selectVideoState],
+  (videoState) => videoState?.status || STATUSES.IDLE
+);
+
+export const selectVideosByCategory = (category) =>
+  createSelector([selectAllVideos], (videos) => {
+    if (!category || category === "All") return videos;
+    return videos.filter((item) => item.category === category);
+  });

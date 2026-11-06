@@ -1,69 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 import { STATUSES } from "./videoSlice";
 import axios from "axios";
-
-const historySlice = createSlice({
-  name: "history",
-  initialState: {
-    status: STATUSES.IDLE,
-    historyVideos: [],
-  },
-  reducers: {},
-
-  extraReducers: (builder) => {
-    builder
-      .addCase(clearAllHistory.pending, (state) => {
-        state.status = STATUSES.pending;
-      })
-      .addCase(clearAllHistory.fulfilled, (state, action) => {
-        state.status = STATUSES.IDLE;
-        if (action.payload) {
-          state.historyVideos = action.payload.history;
-        }
-      })
-      .addCase(clearAllHistory.rejected, (state) => {
-        state.status = STATUSES.ERROR;
-      })
-      .addCase(fetchingHistory.pending, (state) => {
-        state.status = STATUSES.LOADING;
-      })
-      .addCase(fetchingHistory.fulfilled, (state, action) => {
-        state.status = STATUSES.IDLE;
-        if (action.payload) {
-          state.historyVideos = action.payload.history;
-        }
-      })
-      .addCase(fetchingHistory.rejected, (state) => {
-        state.status = STATUSES.ERROR;
-      })
-      .addCase(addingToHistory.pending, (state) => {
-        state.status = STATUSES.pending;
-      })
-      .addCase(addingToHistory.fulfilled, (state, action) => {
-        state.status = STATUSES.IDLE;
-        if (action.payload) {
-          state.historyVideos = action.payload.history;
-        }
-      })
-      .addCase(addingToHistory.rejected, (state) => {
-        state.status = STATUSES.rejected;
-      })
-      .addCase(removingDataFromHistory.pending, (state) => {
-        state.status = STATUSES.pending;
-      })
-      .addCase(removingDataFromHistory.fulfilled, (state, action) => {
-        state.status = STATUSES.IDLE;
-        if (action.payload) {
-          state.historyVideos = action.payload.history;
-        }
-      })
-      .addCase(removingDataFromHistory.rejected, (state) => {
-        state.status = STATUSES.rejected;
-      });
-  },
-});
-
-export default historySlice.reducer;
 
 export const clearAllHistory = createAsyncThunk(
   "history/clearAllHistory",
@@ -74,10 +11,11 @@ export const clearAllHistory = createAsyncThunk(
           authorization: data.token,
         },
       });
-
       return response.data;
-    } catch (ERROR) {
-      return thunkAPI.rejectWithValue(ERROR);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Failed to clear history"
+      );
     }
   }
 );
@@ -97,8 +35,10 @@ export const addingToHistory = createAsyncThunk(
         }
       );
       return response.data;
-    } catch (ERROR) {
-      return thunkAPI.rejectWithValue(ERROR);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Failed to add to history"
+      );
     }
   }
 );
@@ -112,10 +52,11 @@ export const fetchingHistory = createAsyncThunk(
           authorization: data.token,
         },
       });
-
       return response.data;
-    } catch (ERROR) {
-      return thunkAPI.rejectWithValue(ERROR);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Failed to fetch history"
+      );
     }
   }
 );
@@ -130,11 +71,90 @@ export const removingDataFromHistory = createAsyncThunk(
           authorization: token,
         },
       });
-      console.log(response.data);
-      console.log("FROM REMOVING DATA FROM HISTORY");
       return response.data;
-    } catch (ERROR) {
-      return thunkAPI.rejectWithValue(ERROR);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Failed to remove from history"
+      );
     }
   }
+);
+
+const initialState = {
+  status: STATUSES.IDLE,
+  historyVideos: [],
+  error: null,
+};
+
+const historySlice = createSlice({
+  name: "history",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(clearAllHistory.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(clearAllHistory.fulfilled, (state, action) => {
+        state.status = STATUSES.SUCCEEDED;
+        if (action.payload?.history) {
+          state.historyVideos = action.payload.history;
+        } else {
+          state.historyVideos = [];
+        }
+      })
+      .addCase(clearAllHistory.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
+        state.error = action.payload;
+      })
+      .addCase(fetchingHistory.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(fetchingHistory.fulfilled, (state, action) => {
+        state.status = STATUSES.SUCCEEDED;
+        if (action.payload?.history) {
+          state.historyVideos = action.payload.history;
+        }
+      })
+      .addCase(fetchingHistory.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
+        state.error = action.payload;
+      })
+      .addCase(addingToHistory.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(addingToHistory.fulfilled, (state, action) => {
+        state.status = STATUSES.SUCCEEDED;
+        if (action.payload?.history) {
+          state.historyVideos = action.payload.history;
+        }
+      })
+      .addCase(addingToHistory.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
+        state.error = action.payload;
+      })
+      .addCase(removingDataFromHistory.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(removingDataFromHistory.fulfilled, (state, action) => {
+        state.status = STATUSES.SUCCEEDED;
+        if (action.payload?.history) {
+          state.historyVideos = action.payload.history;
+        }
+      })
+      .addCase(removingDataFromHistory.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
+        state.error = action.payload;
+      });
+  },
+});
+
+export default historySlice.reducer;
+
+// Memoized Selectors
+export const selectHistoryState = (state) => state.history;
+
+export const selectAllHistory = createSelector(
+  [selectHistoryState],
+  (historyState) => historyState?.historyVideos || []
 );
