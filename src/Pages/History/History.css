@@ -1,3 +1,16 @@
-.clearAll_btn {
-  margin: 1rem;
+.history_header_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+  gap: 1rem;
+}
+
+.history_page_title {
+  margin: 0;
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-weight: 700;
+  color: var(--text-primary, #111827);
 }

@@ -1,26 +1,42 @@
+.playlist_container {
+  min-width: 0;
+  width: 100%;
+}
+
 .playlistVideo {
-  min-height: fit-content;
+  margin-bottom: 2rem;
+  background: #ffffff;
+  border-radius: var(--radius-md, 10px);
+  padding: 1.25rem;
+  border: 1px solid var(--border-color, #e5e7eb);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .playlistName_title {
   display: flex;
-  width: fit-content;
-  max-width: 100%;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  align-items: center;
   justify-content: space-between;
-  align-items: baseline;
-  background-color: #0d6dcc;
-  border-radius: 2rem;
-  padding: 0rem 1rem;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
 }
 
-.playlistName_title h1 {
-  min-width: 0;
+.playlistName_title h2 {
+  margin: 0;
+  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+  color: var(--text-primary, #111827);
+  font-weight: 700;
   overflow-wrap: anywhere;
-  font-size: clamp(1.2rem, 3vw, 2rem);
 }
 
 .playlistDeleteIcon {
   cursor: pointer;
+  color: #ef4444;
+  font-size: 1.15rem;
+  transition: transform 0.15s ease;
+}
+
+.playlistDeleteIcon:hover {
+  transform: scale(1.2);
 }

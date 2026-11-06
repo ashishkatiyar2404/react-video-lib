@@ -1,80 +1,105 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import SideBar from "../../Components/SideBar/SideBar";
 import "./LandingPage.css";
 import { STATUSES, fetchingVideos } from "../../Store/videoSlice";
+import {
+  setSelectedCategory,
+  selectSelectedCategory,
+  selectFilteredVideos,
+} from "../../Store/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
 import VideoCard from "../../Components/VideoCard/VideoCard";
 
-const LandingPage = () => {
-  const [categorySelected, setCategorySelected] = useState("All");
+const CATEGORIES = [
+  "All",
+  "Naruto",
+  "Itachi",
+  "Akatsuki",
+  "Sasuke",
+  "Madara Uchiha",
+];
 
+const LandingPage = () => {
   const dispatch = useDispatch();
-  const { data, status } = useSelector((state) => state.video);
+  const selectedCategory = useSelector(selectSelectedCategory);
+  const filteredVideos = useSelector(selectFilteredVideos);
+  const status = useSelector((state) => state.video?.status);
 
   useEffect(() => {
     dispatch(fetchingVideos());
   }, [dispatch]);
 
-  function allVideos(categorySelected, videoArr) {
-    return categorySelected !== "All"
-      ? videoArr.filter((item) => item.category === categorySelected)
-      : videoArr;
-  }
-
-  if (status === STATUSES.ERROR) {
-    return <h2>Masla Hogya Ji</h2>;
-  }
+  const skeletonPlaceholders = useMemo(
+    () => Array.from({ length: 8 }, (_, i) => i),
+    []
+  );
 
   return (
     <div className="VideoLanding__Container">
       <div className="bottom__container">
         <SideBar />
       </div>
-      <div className="landing__videos">
-        <div className="category_btn_container">
-          <button
-            className="All_Selected"
-            onClick={() => setCategorySelected("All")}
+
+      <main className="landing__videos">
+        {/* YouTube-Style Chip Bar */}
+        <section
+          className="category_btn_container"
+          aria-label="Filter by Anime Category"
+        >
+          {CATEGORIES.map((category) => (
+            <button
+              key={category}
+              type="button"
+              className={`category_chip ${
+                selectedCategory === category ? "active" : ""
+              }`}
+              onClick={() => dispatch(setSelectedCategory(category))}
+            >
+              {category === "All" ? "All Anime" : category}
+            </button>
+          ))}
+        </section>
+
+        {/* Video Feed / Skeletons */}
+        {status === STATUSES.LOADING && filteredVideos.length === 0 ? (
+          <div className="skeleton_grid" aria-label="Loading anime videos...">
+            {skeletonPlaceholders.map((idx) => (
+              <div key={idx} className="skeleton_card">
+                <div className="skeleton_thumb" />
+                <div className="skeleton_details">
+                  <div className="skeleton_avatar" />
+                  <div className="skeleton_text_group">
+                    <div className="skeleton_line" />
+                    <div className="skeleton_line short" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : status === STATUSES.ERROR && filteredVideos.length === 0 ? (
+          <div className="noPlayList_exist">
+            <h2>Unable to load videos</h2>
+            <p>Please check your connection and try again.</p>
+            <button
+              type="button"
+              className="category_chip active"
+              onClick={() => dispatch(fetchingVideos())}
+              style={{ marginTop: "1rem" }}
+            >
+              Retry
+            </button>
+          </div>
+        ) : (
+          <section
+            className="all_Videos_Container"
+            aria-label="Anime Video Collection"
           >
-            All
-          </button>
-          <button
-            className="Funny_Selected"
-            onClick={() => setCategorySelected("Naruto")}
-          >
-            Naruto Uzumaki
-          </button>
-          <button
-            className="Facts_Selected"
-            onClick={() => setCategorySelected("Itachi")}
-          >
-            Itachi Uchiha
-          </button>
-          <button
-            className="Interview_Selected"
-            onClick={() => setCategorySelected("Akatsuki")}
-          >
-            Akatsuki
-          </button>
-          <button
-            className="Interview_Selected"
-            onClick={() => setCategorySelected("Sasuke")}
-          >
-            Sasuke Uchiha
-          </button>
-          <button
-            className="Interview_Selected"
-            onClick={() => setCategorySelected("Madara Uchiha")}
-          >
-            Madara Uchiha
-          </button>
-        </div>
-        <div className="all_Videos_Container">
-          {allVideos(categorySelected, data).map((videoItem) => {
-            return <VideoCard videosData={videoItem} key={videoItem._id} />;
-          })}
-        </div>
-      </div>
+            {filteredVideos.map((videoItem) => (
+              <VideoCard videosData={videoItem} key={videoItem._id} />
+            ))}
+          </section>
+        )}
+      </main>
     </div>
   );
 };

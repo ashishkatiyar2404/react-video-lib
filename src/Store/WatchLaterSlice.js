@@ -1,56 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, createSelector } from "@reduxjs/toolkit";
 import { STATUSES } from "./videoSlice";
 import axios from "axios";
-
-const watchLaterSlice = createSlice({
-  name: "watchLater",
-  initialState: {
-    status: STATUSES.IDLE,
-    watchLater: [],
-  },
-  reducers: {},
-
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchWatchLater.pending, (state) => {
-        state.status = STATUSES.LOADING;
-      })
-      .addCase(fetchWatchLater.fulfilled, (state, action) => {
-        state.status = STATUSES.IDLE;
-        if (action.payload) {
-          state.watchLater = action.payload.watchlater;
-        }
-      })
-      .addCase(fetchWatchLater.rejected, (state) => {
-        state.status = STATUSES.ERROR;
-      })
-      .addCase(addingToWatchLater.pending, (state) => {
-        state.status = STATUSES.LOADING;
-      })
-      .addCase(addingToWatchLater.fulfilled, (state, action) => {
-        state.status = STATUSES.IDLE;
-        if (action.payload) {
-          state.watchLater = action.payload.watchlater;
-        }
-      })
-      .addCase(addingToWatchLater.rejected, (state) => {
-        state.status = STATUSES.ERROR;
-      })
-
-      .addCase(deletingWatchLater.pending, (state) => {
-        state.status = STATUSES.LOADING;
-      })
-      .addCase(deletingWatchLater.fulfilled, (state, action) => {
-        state.status = STATUSES.IDLE;
-        if (action.payload) {
-          state.watchLater = action.payload.watchlater;
-        }
-      })
-      .addCase(deletingWatchLater.rejected, (state) => {
-        state.status = STATUSES.ERROR;
-      });
-  },
-});
 
 export const fetchWatchLater = createAsyncThunk(
   "watchLater/fetchWatchLater",
@@ -61,11 +11,11 @@ export const fetchWatchLater = createAsyncThunk(
           authorization: data.token,
         },
       });
-      console.log(response.data, " mai fetch ho rha hu");
       return response.data;
-    } catch (ERROR) {
-      console.log("ERROR in FETCH watchLater");
-      return thunkAPI.rejectWithValue(ERROR);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Error in fetch watchLater"
+      );
     }
   }
 );
@@ -73,7 +23,6 @@ export const fetchWatchLater = createAsyncThunk(
 export const addingToWatchLater = createAsyncThunk(
   "watchLater/addingToWatchLater",
   async (data, thunkAPI) => {
-    console.log(data);
     try {
       const { video, token } = data;
       const response = await axios.post(
@@ -85,11 +34,11 @@ export const addingToWatchLater = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
       return response.data;
-    } catch (ERROR) {
-      console.log("ERROR in adding watchLater");
-      return thunkAPI.rejectWithValue(ERROR);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Error in adding to watchLater"
+      );
     }
   }
 );
@@ -104,13 +53,80 @@ export const deletingWatchLater = createAsyncThunk(
           authorization: token,
         },
       });
-      console.log(response.data, "hogya delete");
       return response.data;
-    } catch (ERROR) {
-      console.log("ERROR in deleting watchLater");
-      return thunkAPI.rejectWithValue(ERROR);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Error in deleting from watchLater"
+      );
     }
   }
 );
 
+const initialState = {
+  status: STATUSES.IDLE,
+  watchLater: [],
+  error: null,
+};
+
+const watchLaterSlice = createSlice({
+  name: "watchLater",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchWatchLater.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(fetchWatchLater.fulfilled, (state, action) => {
+        state.status = STATUSES.SUCCEEDED;
+        if (action.payload?.watchlater) {
+          state.watchLater = action.payload.watchlater;
+        }
+      })
+      .addCase(fetchWatchLater.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
+        state.error = action.payload;
+      })
+      .addCase(addingToWatchLater.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(addingToWatchLater.fulfilled, (state, action) => {
+        state.status = STATUSES.SUCCEEDED;
+        if (action.payload?.watchlater) {
+          state.watchLater = action.payload.watchlater;
+        }
+      })
+      .addCase(addingToWatchLater.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
+        state.error = action.payload;
+      })
+      .addCase(deletingWatchLater.pending, (state) => {
+        state.status = STATUSES.LOADING;
+      })
+      .addCase(deletingWatchLater.fulfilled, (state, action) => {
+        state.status = STATUSES.SUCCEEDED;
+        if (action.payload?.watchlater) {
+          state.watchLater = action.payload.watchlater;
+        }
+      })
+      .addCase(deletingWatchLater.rejected, (state, action) => {
+        state.status = STATUSES.ERROR;
+        state.error = action.payload;
+      });
+  },
+});
+
 export default watchLaterSlice.reducer;
+
+// Memoized Selectors
+export const selectWatchLaterState = (state) => state.watch;
+
+export const selectAllWatchLater = createSelector(
+  [selectWatchLaterState],
+  (watchState) => watchState?.watchLater || []
+);
+
+export const selectIsVideoInWatchLater = (videoId) =>
+  createSelector([selectAllWatchLater], (watchLaterList) =>
+    watchLaterList.some((item) => item._id === videoId)
+  );
