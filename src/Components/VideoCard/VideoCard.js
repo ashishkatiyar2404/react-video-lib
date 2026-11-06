@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { BsFillCheckCircleFill, BsDot } from "react-icons/bs";
 import { MdOutlineWatchLater, MdWatchLater } from "react-icons/md";
 import "./VideoCard.css";
@@ -10,81 +10,113 @@ import {
 } from "../../Store/WatchLaterSlice";
 import { addingToHistory } from "../../Store/HistorySlice";
 
+const DEFAULT_AVATAR = (creator) =>
+  `https://api.dicebear.com/7.x/adventurer/svg?seed=${encodeURIComponent(
+    creator || "Anime"
+  )}&backgroundColor=ffd5dc,c0aede,ffdfbf`;
+
+const DEFAULT_THUMBNAIL =
+  "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=640&auto=format&fit=crop&q=80";
+
 const VideoCard = ({ videosData }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     user: { token },
   } = useSelector((store) => store.auth);
 
-  const { _id, title, creator, views, monthAgo, img } = videosData;
-  const [watched, setWatched] = useState(false);
+  const watchLaterList = useSelector((store) => store.watch?.watchLater || []);
+  const { _id, title, creator, views, monthAgo, img, category } = videosData;
 
-  // ADDING TO WATCHLATER HANDLER
-  function watchLaterHandler() {
-    if (token) {
-      setWatched(() => true);
-      dispatch(addingToWatchLater({ video: videosData, token: token }));
+  const isWatched = watchLaterList.some((item) => item._id === _id);
+
+  function handleWatchLaterToggle(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    if (!token) {
+      alert("Please login first to manage Watch Later.");
+      navigate("/Login");
+      return;
+    }
+
+    if (isWatched) {
+      dispatch(deletingWatchLater({ videoID: _id, token }));
     } else {
-      alert("Login First");
+      dispatch(addingToWatchLater({ video: videosData, token }));
     }
   }
 
-  // UNDO WATCH LATER HANDLER
-  function watchedLaterHandler() {
-    setWatched(() => false);
-    dispatch(deletingWatchLater({ videoID: videosData._id, token: token }));
-  }
-
-  // HISTORY HANDLER
-  function historyHandler(e) {
-    e.preventDefault();
-    dispatch(addingToHistory({ video: videosData, token: token }));
+  function handleCardClick() {
+    if (token) {
+      dispatch(addingToHistory({ video: videosData, token }));
+    }
   }
 
   return (
-    <div className="videoCard__container">
-      <div className="thumbNail__container" onClick={historyHandler}>
-        <Link to={`/video/${_id}`}>
+    <article className="videoCard__container">
+      <div className="thumbNail__container">
+        <Link to={`/video/${_id}`} onClick={handleCardClick} aria-label={title}>
           <img
             className="thumbNailIMG"
             src={`https://i.ytimg.com/vi/${_id}/hqdefault.jpg`}
-            alt=""
+            alt={title}
+            loading="lazy"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = DEFAULT_THUMBNAIL;
+            }}
           />
+          {category && <span className="videoCard_badge">{category}</span>}
         </Link>
       </div>
-      <div className="profileAndCreator">
+
+      <div className="videoCard_details">
         <div className="profile_img">
-          <img src={img} alt={title} />
+          <img
+            src={img || DEFAULT_AVATAR(creator)}
+            alt={creator}
+            loading="lazy"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = DEFAULT_AVATAR(creator);
+            }}
+          />
         </div>
-        <div className="creator">
-          <p>{title}</p>
+        <div className="videoCard_meta">
+          <h3 className="videoCard_title">
+            <Link to={`/video/${_id}`} onClick={handleCardClick}>
+              {title}
+            </Link>
+          </h3>
+
+          <p className="creator-container">
+            <span>{creator}</span>
+            <BsFillCheckCircleFill className="verified-icon" />
+          </p>
+
+          <div className="viewsAndMonth">
+            <span className="views-info">
+              {views} <BsDot /> {monthAgo}
+            </span>
+            <button
+              type="button"
+              className="icon__watchLater"
+              onClick={handleWatchLaterToggle}
+              title={isWatched ? "Remove from Watch Later" : "Add to Watch Later"}
+              aria-label={isWatched ? "Remove from Watch Later" : "Add to Watch Later"}
+              style={{ background: "none", border: "none", padding: 0 }}
+            >
+              {isWatched ? (
+                <MdWatchLater className="active" />
+              ) : (
+                <MdOutlineWatchLater />
+              )}
+            </button>
+          </div>
         </div>
       </div>
-      <div className="viewsAndMonth">
-        <p className="creator-container">
-          {creator} <BsFillCheckCircleFill />
-        </p>
-        <p>
-          &nbsp;&nbsp;{views}
-          <BsDot />
-          {monthAgo}
-        </p>
-        <p>
-          {watched ? (
-            <MdWatchLater
-              className="icon__watchLater"
-              onClick={watchedLaterHandler}
-            />
-          ) : (
-            <MdOutlineWatchLater
-              className="icon__watchLater"
-              onClick={watchLaterHandler}
-            />
-          )}
-        </p>
-      </div>
-    </div>
+    </article>
   );
 };
 
-export default VideoCard;
+export default React.memo(VideoCard);
