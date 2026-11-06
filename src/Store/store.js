@@ -4,11 +4,9 @@ import authReducer from "./AuthSlice";
 import watchLaterReducer from "./WatchLaterSlice";
 import historyReducer from "./HistorySlice";
 import likeReducer from "./LikeSlice";
-import PlaylistReducer from "./PlayListSLice";
-// import { getDefaultMiddleware } from "@reduxjs/toolkit";
-// const customizedMiddleware = getDefaultMiddleware({
-//   serializableCheck: false,
-// });
+import playlistReducer from "./PlayListSLice";
+import filterReducer from "./filterSlice";
+
 const store = configureStore({
   reducer: {
     video: videoReducer,
@@ -16,7 +14,8 @@ const store = configureStore({
     watch: watchLaterReducer,
     history: historyReducer,
     like: likeReducer,
-    playlist: PlaylistReducer,
+    playlist: playlistReducer,
+    filter: filterReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

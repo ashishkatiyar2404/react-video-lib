@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import SideBar from "../../Components/SideBar/SideBar";
@@ -7,64 +6,66 @@ import { FaTrash } from "react-icons/fa";
 import {
   deletingPlaylist,
   fetchingAllPlaylists,
+  selectAllPlaylists,
 } from "../../Store/PlayListSLice";
 import "./PlaylistPage.css";
 import VideoCard from "../../Components/VideoCard/VideoCard";
-import "./PlaylistPage.css";
 
 const PlaylistPage = () => {
   const dispatch = useDispatch();
-  const playlist = useSelector((store) => store.playlist.playlist);
+  const playlist = useSelector(selectAllPlaylists);
   const {
     user: { token },
   } = useSelector((store) => store.auth);
 
   useEffect(() => {
-    dispatch(fetchingAllPlaylists({ token }));
-    // eslint-disable-next-line
-  }, []);
+    if (token) {
+      dispatch(fetchingAllPlaylists({ token }));
+    }
+  }, [dispatch, token]);
 
-  // DELETING WHOLE PLAYLIST
   const deletingWholePlaylist = (playlistId) => {
-    dispatch(deletingPlaylist({ token, playlistId }));
+    if (token && window.confirm("Are you sure you want to delete this playlist?")) {
+      dispatch(deletingPlaylist({ token, playlistId }));
+    }
   };
 
   return (
-    <main className="playlist_management_container">
+    <div className="playlist_management_container">
       <div className="bottom__container">
         <SideBar />
       </div>
-      <div className="playlist_container">
+      <main className="playlist_container">
         {playlist?.length > 0 ? (
-          playlist?.map((everyPlaylist) => {
-            return (
-              <div className="playlistVideo" key={everyPlaylist._id}>
-                <div className="playlistName_title">
-                  <h1>{everyPlaylist.title} </h1>
-                  <p>
-                    <FaTrash
-                      className="playlistDeleteIcon"
-                      onClick={() => deletingWholePlaylist(everyPlaylist._id)}
-                    />
-                  </p>
-                </div>
-                <div className="perticularPlaylistVideo">
-                  {everyPlaylist.videos.map((videosData) => {
-                    return (
-                      <VideoCard videosData={videosData} key={videosData._id} />
-                    );
-                  })}
-                </div>
+          playlist.map((everyPlaylist) => (
+            <section className="playlistVideo" key={everyPlaylist._id}>
+              <div className="playlistName_title">
+                <h2>{everyPlaylist.title}</h2>
+                <button
+                  type="button"
+                  onClick={() => deletingWholePlaylist(everyPlaylist._id)}
+                  title="Delete playlist"
+                  aria-label={`Delete playlist ${everyPlaylist.title}`}
+                  style={{ background: "none", border: "none", padding: 0 }}
+                >
+                  <FaTrash className="playlistDeleteIcon" />
+                </button>
               </div>
-            );
-          })
+              <div className="perticularPlaylistVideo">
+                {everyPlaylist.videos?.map((videosData) => (
+                  <VideoCard videosData={videosData} key={videosData._id} />
+                ))}
+              </div>
+            </section>
+          ))
         ) : (
           <div className="noPlayList_exist">
-            No Playlist Exist <Link to="/LandingPage">Explore Videos</Link>
+            <p>No playlists found.</p>
+            <Link to="/LandingPage">Explore anime videos to add to a playlist</Link>
           </div>
         )}
-      </div>
-    </main>
+      </main>
+    </div>
   );
 };
 

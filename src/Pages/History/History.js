@@ -1,21 +1,32 @@
 import { Button } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import HistoryCards from "../../Components/HistoryCards/HistoryCards";
 import SideBar from "../../Components/SideBar/SideBar";
-import { clearAllHistory } from "../../Store/HistorySlice";
+import {
+  clearAllHistory,
+  fetchingHistory,
+  selectAllHistory,
+} from "../../Store/HistorySlice";
 import "./History.css";
 
 const History = () => {
   const dispatch = useDispatch();
-  const historyVideos = useSelector((store) => store.history.historyVideos);
+  const historyVideos = useSelector(selectAllHistory);
   const { user } = useSelector((store) => store.auth);
 
-  // CLEAR ALL HANDLER
+  useEffect(() => {
+    if (user?.token) {
+      dispatch(fetchingHistory({ token: user.token }));
+    }
+  }, [dispatch, user?.token]);
+
   function clearAllHandler(e) {
     e.preventDefault();
-    dispatch(clearAllHistory({ token: user.token }));
+    if (user?.token && window.confirm("Are you sure you want to clear your entire watch history?")) {
+      dispatch(clearAllHistory({ token: user.token }));
+    }
   }
 
   return (
@@ -23,28 +34,39 @@ const History = () => {
       <div className="bottom__container">
         <SideBar />
       </div>
-      <div className="clearAll_btn">
+
+      <main className="clearAll_btn">
+        <div className="history_header_row">
+          <h1 className="history_page_title">Watch History</h1>
+          {historyVideos?.length > 0 && (
+            <Button
+              variant="outlined"
+              color="error"
+              size="small"
+              onClick={clearAllHandler}
+              sx={{ textTransform: "none", borderRadius: "8px" }}
+            >
+              Clear All History
+            </Button>
+          )}
+        </div>
+
         {historyVideos?.length > 0 ? (
-          <Button onClick={clearAllHandler}>Clear All</Button>
-        ) : (
-          <div>
-            No History Click on
-            <Link className="text-decoration" to="/LandingPage">
-              <Button className="explore_btn"> Explore more</Button>
-            </Link>
-            for Add some videos
-          </div>
-        )}
-        {historyVideos.length > 0 ? (
-          <div className="watchLaterVideos__container">
+          <section
+            className="watchLaterVideos__container"
+            aria-label="Watched Anime List"
+          >
             {historyVideos.map((videos) => (
-              <HistoryCards videos={videos} />
+              <HistoryCards videos={videos} key={videos._id} />
             ))}
-          </div>
+          </section>
         ) : (
-          ""
+          <div className="noPlayList_exist">
+            <p>Your watch history is empty.</p>
+            <Link to="/LandingPage">Explore videos to start watching</Link>
+          </div>
         )}
-      </div>
+      </main>
     </div>
   );
 };
