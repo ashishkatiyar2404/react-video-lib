@@ -82,14 +82,16 @@ const SingleVideoPage = () => {
         {openModal ? (
           <PlaylistPortal video={videoInfo} setOpenModal={setOpenModal} />
         ) : null}
-        <ReactPlayer
-          url={`https://www.youtube.com/watch?v=${videoID}`}
-          width={"100%"}
-          controls={true}
-          style={{ aspectRatio: "auto" }}
-          playing
-          onPlay={() => dispatch(addingToHistory({ video: videoInfo, token }))}
-        ></ReactPlayer>
+        <div className="video_player">
+          <ReactPlayer
+            url={`https://www.youtube.com/watch?v=${videoID}`}
+            width={"100%"}
+            height={"100%"}
+            controls={true}
+            playing
+            onPlay={() => dispatch(addingToHistory({ video: videoInfo, token }))}
+          />
+        </div>
         <section className="video_description">
           <div className="video_heading">
             <p>{videoInfo?.title}</p>

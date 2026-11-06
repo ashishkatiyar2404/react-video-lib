@@ -11,17 +11,12 @@
 }
 
 .center {
-  height: 65vh;
-  overflow: hidden;
-  font-size: 1.6rem;
-  scroll-behavior: smooth;
+  font-size: 1rem;
   position: relative;
-  width: 30rem;
+  width: min(30rem, calc(100% - 2rem));
+  margin: clamp(1rem, 5vh, 3rem) auto;
+  padding-bottom: 1.5rem;
   border-radius: 1rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   box-shadow: rgba(0, 0, 0, 0.35) 0rem 0.5rem 1.5rem;
   background: var(--white-color);
 }
@@ -35,7 +30,7 @@
 }
 
 .center form {
-  padding: 0rem 2rem;
+  padding: 0 clamp(1rem, 4vw, 2rem);
 }
 
 form .text__field {
@@ -60,7 +55,7 @@ form .text__field {
   left: 0.5rem;
   color: var(--adadad-color);
   transform: translateY(-50%);
-  font-size: 1.2rem;
+  font-size: 1rem;
   pointer-events: none;
   transition: 0.5s;
 }
@@ -90,7 +85,7 @@ form .text__field {
 .pass {
   margin: -0.5rem 0rem 2rem 0.5rem;
   color: var(--forgot-already-color);
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 3.5vw, 1.2rem);
   cursor: pointer;
 }
 
@@ -120,7 +115,7 @@ input[type="submit"]:hover,
 }
 
 .signup__link {
-  margin: 2rem 0;
+  margin: 2rem 1rem 0;
   text-align: center;
   font-size: 1.2rem;
   color: var(--gray-color-shade);
@@ -134,4 +129,12 @@ input[type="submit"]:hover,
 
 .signup__link a:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 400px) {
+  .center input[type="submit"],
+  .center .guestLogin {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
 }

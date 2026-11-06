@@ -1,9 +1,11 @@
-.single_video_container {
-  margin: 0.5rem;
+.video_player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
 }
 
 .video_description {
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 .video_heading {
@@ -11,6 +13,8 @@
   font-weight: 700;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .like_dislike_playlist_icon {
@@ -29,6 +33,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .img_container_videoID img {

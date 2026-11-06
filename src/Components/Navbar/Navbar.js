@@ -21,16 +21,16 @@ const Navbar = () => {
 
   return (
     <AppBar position="static">
-      <Toolbar>
+      <Toolbar sx={{ flexWrap: "wrap", gap: 1, py: 1 }}>
         <IconButton size="large" edge="start" color="inherit" aria-label="logo">
           <Link to="/" className="wave">
             <GiStaticWaves />
           </Link>
         </IconButton>
-        <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant="h4" component="div" sx={{ flexGrow: 1, fontSize: { xs: "1.35rem", sm: "2rem" } }}>
           Wave Library
         </Typography>
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row" spacing={{ xs: 0.5, sm: 2 }} sx={{ ml: "auto" }}>
           <Link to="/LandingPage" className="link_btn">
             <Button color="inherit">Explore</Button>
           </Link>

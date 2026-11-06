@@ -7,6 +7,7 @@
   height: auto;
   width: 100%;
   padding: 0;
+  margin: 0;
 }
 
 .sideBar__list .sideBar__row {
@@ -39,6 +40,29 @@
   flex: 70%;
 }
 
-a.active {
+.sideBar__row.active {
   background-color: #1976d2;
+}
+
+@media (max-width: 767px) {
+  .sideBar__list {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .sideBar__list .sideBar__row {
+    flex-direction: column;
+    height: auto;
+    min-height: 72px;
+    margin: 0;
+    padding: 0.5rem 0.125rem;
+    gap: 0.25rem;
+    text-align: center;
+    font-size: 0.75rem;
+  }
+
+  .sideBar__row .icon,
+  .sideBar__row .title {
+    flex: initial;
+  }
 }
