@@ -20,35 +20,68 @@ const Navbar = () => {
   } = useSelector((store) => store.auth);
 
   return (
-    <AppBar position="static">
-      <Toolbar sx={{ flexWrap: "wrap", gap: 1, py: 1 }}>
-        <IconButton size="large" edge="start" color="inherit" aria-label="logo">
-          <Link to="/" className="wave">
-            <GiStaticWaves />
-          </Link>
-        </IconButton>
-        <Typography variant="h4" component="div" sx={{ flexGrow: 1, fontSize: { xs: "1.35rem", sm: "2rem" } }}>
-          Wave Library
-        </Typography>
-        <Stack direction="row" spacing={{ xs: 0.5, sm: 2 }} sx={{ ml: "auto" }}>
+    <AppBar position="sticky" sx={{ backgroundColor: "#1976d2", zIndex: 1100 }}>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between", px: { xs: 1, sm: 2 } }}>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <IconButton size="medium" edge="start" color="inherit" aria-label="Wave Library Home" component={Link} to="/">
+            <GiStaticWaves className="wave" size={28} />
+          </IconButton>
+          <Typography
+            variant="h6"
+            component={Link}
+            to="/"
+            sx={{
+              fontWeight: 700,
+              letterSpacing: "-0.5px",
+              color: "white",
+              textDecoration: "none",
+              fontSize: { xs: "1.15rem", sm: "1.5rem" },
+            }}
+          >
+            Wave Library
+          </Typography>
+        </Stack>
+
+        <Stack direction="row" spacing={{ xs: 1, sm: 2 }} alignItems="center">
           <Link to="/LandingPage" className="link_btn">
-            <Button color="inherit">Explore</Button>
+            <Button
+              color="inherit"
+              variant="outlined"
+              size="small"
+              sx={{ borderColor: "rgba(255,255,255,0.6)", color: "white", textTransform: "none", borderRadius: "8px" }}
+            >
+              Explore
+            </Button>
           </Link>
           {token === null ? (
             <Link to="/Login" className="link_btn">
-              <Button color="inherit">Login</Button>
-            </Link>
-          ) : (
-            <Link to="/" className="link_btn">
               <Button
                 color="inherit"
-                onClick={() => {
-                  dispatch(logout());
+                variant="contained"
+                size="small"
+                sx={{
+                  backgroundColor: "white",
+                  color: "#1976d2",
+                  fontWeight: 600,
+                  textTransform: "none",
+                  borderRadius: "8px",
+                  "&:hover": { backgroundColor: "#f3f4f6" },
                 }}
               >
-                LogOut
+                Login
               </Button>
             </Link>
+          ) : (
+            <Button
+              color="inherit"
+              size="small"
+              onClick={() => {
+                dispatch(logout());
+              }}
+              sx={{ color: "white", textTransform: "none" }}
+            >
+              Logout
+            </Button>
           )}
         </Stack>
       </Toolbar>
