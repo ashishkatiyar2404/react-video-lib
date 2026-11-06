@@ -3,13 +3,10 @@
 }
 
 .modal {
-  z-index: 9;
+  z-index: 1300;
   position: fixed;
-  height: 100vh;
-  width: 100vw;
-  top: 0;
-  right: 0;
-  left: 0;
+  inset: 0;
+  padding: 1rem;
   width: 100%;
   display: flex;
   align-items: center;
@@ -21,13 +18,17 @@
 .modal_playlist {
   background-color: #3270b8;
   padding: 1rem;
-  min-width: 20%;
+  width: min(100%, 28rem);
+  max-height: 100%;
+  overflow-y: auto;
   border-radius: 2%;
 }
 
 .modalPlaylist_container {
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
+  overflow-wrap: anywhere;
 }
 
 .close_btn_modal {
@@ -41,6 +42,8 @@
   padding: 0.1rem 0.5rem;
   border: none;
   outline: transparent;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .input_playlist::placeholder {

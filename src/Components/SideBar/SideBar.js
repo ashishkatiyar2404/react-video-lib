@@ -11,44 +11,49 @@ const SideBar = () => {
   const sideBarData = [
     {
       title: "Explore",
-      icon: <HomeIcon />,
+      icon: <HomeIcon fontSize="inherit" />,
       link: "/LandingPage",
     },
     {
       title: "Liked",
-      icon: <ThumbUpAltIcon />,
+      icon: <ThumbUpAltIcon fontSize="inherit" />,
       link: "/LikedVideos",
     },
     {
-      title: "PlayList",
-      icon: <QueueIcon />,
+      title: "Playlist",
+      icon: <QueueIcon fontSize="inherit" />,
       link: "/PlaylistPage",
     },
     {
       title: "Watch Later",
-      icon: <WatchLaterIcon />,
+      icon: <WatchLaterIcon fontSize="inherit" />,
       link: "/WatchLater",
     },
     {
       title: "History",
-      icon: <HistoryIcon />,
+      icon: <HistoryIcon fontSize="inherit" />,
       link: "/History",
     },
   ];
 
   return (
-    <div className="sideBar__container">
+    <nav className="sideBar__container" aria-label="Main Navigation">
       <ul className="sideBar__list">
-        {sideBarData.map((val, key) => {
-          return (
-            <NavLink to={val.link} key={key} className="sideBar__row">
-              <div className="cursor icon">{val.icon}</div>
-              <div className="cursor title"> {val.title}</div>
+        {sideBarData.map((val, key) => (
+          <li key={key}>
+            <NavLink
+              to={val.link}
+              className={({ isActive }) =>
+                `sideBar__row ${isActive ? "active" : ""}`
+              }
+            >
+              <span className="icon">{val.icon}</span>
+              <span className="title">{val.title}</span>
             </NavLink>
-          );
-        })}
+          </li>
+        ))}
       </ul>
-    </div>
+    </nav>
   );
 };
 

@@ -1,12 +1,18 @@
 .likeVideos__container {
-  margin: 1rem;
-  display: flex;
-  flex-wrap: wrap;
+  padding: 1rem;
 }
 
 .no_like_videos {
-  font-size: 2rem;
-  width: max-content;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+}
+
+.likeVideos__container > .no_like_videos {
+  grid-column: 1 / -1;
+}
+
+.watchLater__container > .no_like_videos {
+  min-width: 0;
+  padding: 1rem;
 }
 .text-decoration {
   text-decoration: none;

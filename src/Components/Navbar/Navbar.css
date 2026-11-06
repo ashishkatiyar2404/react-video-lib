@@ -1,11 +1,10 @@
-.link_btn button {
-  color: white;
-}
-
 .link_btn {
   text-decoration: none;
+  display: inline-flex;
 }
 
 .wave {
-  color: white;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
 }

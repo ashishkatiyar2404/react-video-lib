@@ -1,44 +1,151 @@
 .sideBar__container {
   height: 100%;
-  background-color: #7bb7f3;
+  background-color: #ffffff;
+  border-right: 1px solid var(--border-color, #e5e7eb);
+  position: sticky;
+  top: var(--navbar-height, 64px);
+  max-height: calc(100dvh - var(--navbar-height, 64px));
+  overflow-y: auto;
+  z-index: 10;
+  transition: width 0.2s ease, transform 0.2s ease;
 }
 
 .sideBar__list {
-  height: auto;
-  width: 100%;
-  padding: 0;
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .sideBar__list .sideBar__row {
-  height: 60px;
-  list-style-type: none;
-  margin: 2%;
   display: flex;
-  flex-direction: row;
-  color: white;
-  justify-content: center;
   align-items: center;
+  gap: 1rem;
+  height: 44px;
+  padding: 0 0.75rem;
+  border-radius: var(--radius-sm, 6px);
+  color: #4b5563;
   text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .sideBar__list .sideBar__row:hover {
-  background-color: #1976d2;
+  background-color: #f3f4f6;
+  color: #111827;
 }
 
-.cursor {
-  cursor: pointer;
+.sideBar__list .sideBar__row.active {
+  background-color: #e0f2fe;
+  color: var(--primary-color, #1976d2);
+  font-weight: 600;
 }
 
-.icon {
-  flex: 30%;
-  display: grid;
-  place-items: center;
+.sideBar__row .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
 }
 
-.title {
-  flex: 70%;
+.sideBar__row .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-a.active {
-  background-color: #1976d2;
+/* ==========================================================================
+   Tablet Mini-Sidebar (768px - 1023px)
+   ========================================================================== */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sideBar__container {
+    width: 80px;
+  }
+
+  .sideBar__list {
+    padding: 0.5rem 0.25rem;
+    gap: 0.5rem;
+  }
+
+  .sideBar__list .sideBar__row {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    height: 64px;
+    padding: 0.5rem 0.2rem;
+    text-align: center;
+  }
+
+  .sideBar__row .title {
+    font-size: 0.7rem;
+    line-height: 1.1;
+  }
+
+  .sideBar__row .icon {
+    font-size: 1.4rem;
+  }
+}
+
+/* ==========================================================================
+   Mobile YouTube-Style Bottom Navigation (< 768px)
+   ========================================================================== */
+@media (max-width: 767px) {
+  .sideBar__container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    width: 100%;
+    height: var(--bottom-nav-height, 56px);
+    max-height: var(--bottom-nav-height, 56px);
+    border-right: none;
+    border-top: 1px solid var(--border-color, #e5e7eb);
+    background-color: #ffffff;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.06);
+    z-index: 1000;
+    overflow-y: hidden;
+  }
+
+  .sideBar__list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    height: 100%;
+    padding: 0;
+    gap: 0;
+  }
+
+  .sideBar__list .sideBar__row {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    height: 100%;
+    margin: 0;
+    padding: 0.25rem 0;
+    border-radius: 0;
+    color: #6b7280;
+  }
+
+  .sideBar__list .sideBar__row:hover {
+    background-color: transparent;
+  }
+
+  .sideBar__list .sideBar__row.active {
+    background-color: transparent;
+    color: var(--primary-color, #1976d2);
+  }
+
+  .sideBar__row .icon {
+    font-size: 1.25rem;
+  }
+
+  .sideBar__row .title {
+    font-size: 0.65rem;
+    font-weight: 500;
+  }
 }

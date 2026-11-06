@@ -1,3 +1,148 @@
+:root {
+  --primary-color: #1976d2;
+  --primary-light: #7bb7f3;
+  --primary-hover: #1565c0;
+  --bg-color: #f9fafb;
+  --card-bg: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+  --navbar-height: 64px;
+  --bottom-nav-height: 56px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
 .App {
-  height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   YouTube-Style App Shell & Responsive Layout Containers
+   ========================================================================== */
+
+.VideoLanding__Container,
+.watchLater__container,
+.playlist_management_container {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  min-height: calc(100dvh - var(--navbar-height));
+  width: 100%;
+  max-width: 100%;
+}
+
+.bottom__container {
+  min-width: 0;
+}
+
+.landing__videos,
+.single_video_container,
+.playlist_container,
+.clearAll_btn {
+  min-width: 0;
+  width: 100%;
+  padding: 1.5rem;
+  background-color: var(--bg-color);
+}
+
+/* Responsive Auto-Fitting Video Grid */
+.all_Videos_Container,
+.watchLaterVideos__container,
+.likeVideos__container,
+.perticularPlaylistVideo {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  width: 100%;
+  min-width: 0;
+  align-content: start;
+}
+
+/* Empty states */
+.noPlayList_exist,
+.no_like_videos {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  padding: 2rem 1rem;
+  text-align: center;
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  margin-top: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.noPlayList_exist a,
+.no_like_videos a {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-left: 0.5rem;
+  text-decoration: none;
+}
+
+/* Responsive Media Queries */
+@media (min-width: 1400px) {
+  .all_Videos_Container,
+  .watchLaterVideos__container,
+  .likeVideos__container,
+  .perticularPlaylistVideo {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .VideoLanding__Container,
+  .watchLater__container,
+  .playlist_management_container {
+    grid-template-columns: 80px minmax(0, 1fr);
+  }
+
+  .landing__videos,
+  .playlist_container,
+  .clearAll_btn {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .VideoLanding__Container,
+  .watchLater__container,
+  .playlist_management_container {
+    display: block;
+    width: 100%;
+    padding-bottom: calc(var(--bottom-nav-height) + 1rem); /* Space for bottom navigation */
+  }
+
+  .all_Videos_Container,
+  .watchLaterVideos__container,
+  .likeVideos__container,
+  .perticularPlaylistVideo {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .landing__videos,
+  .playlist_container,
+  .clearAll_btn {
+    padding: 0.75rem;
+  }
 }
